@@ -4,7 +4,40 @@ Ext.define('Sencha_Draw.view.vm.test.LockGridModel', {
         namespace: 'Sencha_Draw.view.vm.test'
     },
     fields: [
-        {name: 'slave_id', type: 'int', allowBlank: true, defaultValue: null}
+        {name: 'name'},
+        {name: 'price', type: 'float'},
+        {name: 'change', type: 'float'},
+        {name: 'pctChange', type: 'float'},
+        {name: 'lastChange', type: 'date',  dateFormat: 'n/j h:ia'},
+        {name: 'industry'},
+        {name: 'desc'},
+        // Trend begins with the cerrent price. Changes get pushed onto the end
+        {
+            name: 'trend',
+            convert: function(value, record) {
+                // Record creation call with no trend there: start with current price
+                if (value === null) {
+                    return [record.get('price')];
+                }
+                return Ext.isArray(value) ? value : [ value ];
+            }
+        },
+        // Rating dependent upon performance 0 = best, 2 = worst
+        {
+            name: 'rating',
+            type: 'int',
+            convert: function(value, record) {
+                var pct = record.get('pctChange');
+                if (pct < 0)
+                    return 2;
+                if (pct < 1)
+                    return 1;
+                return 0;
+            }
+        }
+    ]
+    // fields: [
+        // {name: 'slave_id', type: 'int', allowBlank: true, defaultValue: null}
         // {name: 'test_col_1', type: 'int', allowBlank: true, defaultValue: null}
         // {name: 'slave_id', type: 'int', allowBlank: true, defaultValue: null},
         // {name: '1001', type: 'float', allowBlank: true, defaultValue: null}
@@ -51,7 +84,7 @@ Ext.define('Sencha_Draw.view.vm.test.LockGridModel', {
         //         return 0;
         //     }
         // }
-    ],
+    // ],
 
     // bind: {fields: '{fieldsVisMon}'}
 

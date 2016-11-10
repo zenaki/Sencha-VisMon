@@ -89,6 +89,8 @@ Ext.define('Sencha_Draw.view.vm.VisualMonita_Controller', {
               table.reconfigure(table.getStore(), json.columns);
               table.getStore().setData(json.data);
 
+              // console.log('JSON Columns = '); console.log(json.columns);
+              // console.log('Table Columns = '); console.log(table.getColumns());
               // console.log('monita_viewModel = '); console.log(monita_viewModel);
               json = JSON.parse(monita_viewModel);
               // console.log('json = '); console.log(json);

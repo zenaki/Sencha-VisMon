@@ -129,8 +129,8 @@ Ext.define('Sencha_Draw.view.vm.VisualMonita', {
 				title: 'Table Data Visual Monita',
 				autoLoad: true,
 				autoRender: true,
-				autoShow: true,
-				columns: [{text: 'Slave ID', dataIndex: 'slave_id'}]
+				autoShow: true
+				// columns: [{text: 'Slave ID', dataIndex: 'slave_id'}]
 				// bind: {columns: {columnsVisMon}}
 			}]
   	}, {
