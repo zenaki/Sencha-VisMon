@@ -1,0 +1,75 @@
+{
+  "fields": [{
+    "name": "slave_id",
+    "type": "int",
+    "allowBlank": true,
+    "defaultValue": null
+  }, {
+    "name": "1001",
+    "type": "float",
+    "allowBlank": true,
+    "defaultValue": null
+  }, {
+    "name": "1003",
+    "type": "float",
+    "allowBlank": true,
+    "defaultValue": null
+  }, {
+    "name": "1005",
+    "type": "float",
+    "allowBlank": true,
+    "defaultValue": null
+  }, {
+    "name": "1007",
+    "type": "float",
+    "allowBlank": true,
+    "defaultValue": null
+  }, {
+    "name": "1009",
+    "type": "float",
+    "allowBlank": true,
+    "defaultValue": null
+  }],
+  "columns": [{
+    "header": "Slave ID",
+    "locked": true,
+    "dataIndex": "slave_id"
+  }, {
+    "header": "1001",
+    "dataIndex": "1001"
+  }, {
+    "header": "1003",
+    "dataIndex": "1003"
+  }, {
+    "header": "1005",
+    "dataIndex": "1005"
+  }, {
+    "header": "1007",
+    "dataIndex": "1007"
+  }, {
+    "header": "1009",
+    "dataIndex": "1009"
+  }],
+  "data": [{
+    "slave_id": "1",
+    "1001": "111.111",
+    "1003": "111.111",
+    "1005": "111.111",
+    "1007": "111.111",
+    "1009": "111.111"
+  }, {
+    "slave_id": "2",
+    "1001": "222.222",
+    "1003": "222.222",
+    "1005": "222.222",
+    "1007": "222.222",
+    "1009": "222.222"
+  }, {
+    "slave_id": "3",
+    "1001": "333.333",
+    "1003": "333.333",
+    "1005": "333.333",
+    "1007": "333.333",
+    "1009": "333.333"
+  }]
+}

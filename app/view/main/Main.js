@@ -57,4 +57,82 @@ Ext.define('Sencha_Draw.view.main.Main', {
           html: '<iframe src="GraphEditor/index.html" height="100%" width="100%" allowTransparency="true" scrolling="no" frameborder="0" ></iframe>'
         }]
     }]
+
+//     items: [{
+//
+//         xtype: 'draw',
+//         // xtype: 'Ext.draw.Container',
+//         // layout: 'fit',
+//         width: 500,
+//         height: 500,
+//         resizable: {
+//           dynamic: true,
+//           pinned: true,
+//           handles: 'all',
+//           transparent: true
+//         },
+//         draggable: {
+//           constrain: true
+//         },
+//         // resizable: true,
+//         // draggable: true,
+//         //*
+//         sprites: [{
+//             type: 'ellipse',
+//             cx: 70,
+//             cy: 130,
+//             rx: 40,
+//             ry: 25,
+//             fillStyle: 'blue'
+// //*
+//         },{
+//             type: 'path',
+//             path: 'M75,75 c0,-25 50,25 50,0 c0,-25 -50,25 -50,0',
+//             fillStyle: 'blue'
+// //*/
+//         },{
+//             type: 'image',
+//             src : 'png/filter.png',
+//             x: 200,
+//             y: 30
+//         },{
+//             type: 'text',
+//             x: 218,
+//             y: 100,
+//             text: 'Filter',
+//             fontSize: 14,
+//             fillStyle: 'blue'
+//         },{
+//             type: 'image',
+//             src : 'png/piping-ca-h.png',
+//             x: 268,
+//             y: 47,
+//             width: 120,
+//             height: 16
+//         },{
+//             type: 'image',
+//             src: 'png/piping-ca-e2.png',
+//             x: 388,
+//             y: 46,
+//             //width: 120,
+//             height: 28
+//           },{
+//             type: 'image',
+//             src: 'png/flow1.png',
+//             x: 300,
+//             y: 49
+//         }]
+//         //*/
+// /*
+//       },{
+//         xtype: 'image',
+//         //id: 'south_image',
+//         //width: 200,
+//         //padding: '10 0 0 0',
+//         src: 'png/piping-rd-h.png',
+//         //floating: true,
+//         width: 300,
+//         height: 14
+// //*/
+//     }]
 });

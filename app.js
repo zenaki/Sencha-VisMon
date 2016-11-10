@@ -8,7 +8,10 @@ Ext.application({
 
     extend: 'Sencha_Draw.Application',
 
+    // autoCreateViewport: 'Sencha_Draw.view.main.Main'
     autoCreateViewport: 'Sencha_Draw.view.vm.VisualMonita'
+    // autoCreateViewport: 'Sencha_Draw.view.vm.test.LockGridView'
+    // autoCreateViewport: 'Sencha_Draw.view.vm.DragDropResize'
 
     //-------------------------------------------------------------------------
     // Most customizations should be made to Sencha_Draw.Application. If you need to

@@ -8,14 +8,19 @@ Ext.define('Sencha_Draw.Application', {
 
     name: 'Sencha_Draw',
 
-    views: [
-      'vm.VisualMonita'
-    ],
+    // views: [
+    //   'vm.VisualMonita'
+    // ],
 
     stores: [
         // TODO: add global / shared stores here
-        'Companies'
+        'Sencha_Draw.view.vm.test.LockGridStore'
+        // 'Sencha_Draw.view.vm.test.dynamic.DynamicGridStore'
     ],
+
+    // models: [
+    //   'Sencha_Draw.view.vm.test.dynamic.DynamicGridModel'
+    // ],
 
     launch: function () {
         // TODO - Launch the application
