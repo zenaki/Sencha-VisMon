@@ -1,10 +1,10 @@
-Ext.Loader.setConfig ({
-	enabled: true,
-	paths: {
-		'Ext.ux.WebSocket': 'WebSocket/WebSocket.js' ,
-		'Ext.ux.WebSocketManager': 'WebSocket/WebSocketManager.js'
-	}
-});
+// Ext.Loader.setConfig ({
+// 	enabled: true,
+// 	paths: {
+// 		'Ext.ux.WebSocket': 'WebSocket/WebSocket.js' ,
+// 		'Ext.ux.WebSocketManager': 'WebSocket/WebSocketManager.js'
+// 	}
+// });
 
 Ext.define('Sencha_Draw.view.vm.VisualMonita', {
   extend: 'Ext.container.Container',
@@ -13,14 +13,12 @@ Ext.define('Sencha_Draw.view.vm.VisualMonita', {
     'Sencha_Draw.view.vm.VisualMonita_Controller',
     'Sencha_Draw.view.vm.VisualMonita_Model',
 		'Sencha_Draw.view.vm.test.LockGridView',
-		// 'Sencha_Draw.view.vm.DragDropResize',
-		'Ext.container.Container',
     'Ext.ux.WebSocket',
     'Ext.ux.WebSocketManager'
   ],
 
   xtype: 'visual-monita',
-
+	itemId: 'parent',
   controller: 'vm',
   viewModel: {
 		data: {
@@ -93,6 +91,14 @@ Ext.define('Sencha_Draw.view.vm.VisualMonita', {
 				type: 'border',
 				align: 'stretch'
 			},
+			listeners: {
+				containercontextmenu: function(grid, e) {
+        	// var position = e.getXY();
+          // e.stopEvent();
+          // menu_grid.showAt(position);
+					console.log("Right Click Container Context Menu");
+        }
+      },
 			items: [{
 				xtype: 'panel',
 				itemId: 'canvas',
@@ -115,9 +121,98 @@ Ext.define('Sencha_Draw.view.vm.VisualMonita', {
             click: 'onAddLabelClick'
         	}
     		}],
+				listeners: {
+					el: {
+						mousemove: function(e) {
+							var object = Ext.ComponentQuery.query('#vm_object')[0];
+							// console.log('Page X = '); console.log(e.getX());
+							// console.log('Page Y = '); console.log(e.getY());
+							if (object.getViewModel().get('x_drag')) {
+								// console.log('Move Object X = ' + object.getX() + ' Y = ' + object.getY() + ' to X = ' + e.getX() + ' Y = ' + e.getY());
+								// var data = object.getViewModel().getData();
+								// object.el.setX(e.getX);
+								// object.el.setY(e.getY);
+								object.setPagePosition(e.getX()-10, e.getY()-10);
+							} else {
+								// console.log('NOT Move Object X = ' + object.getX() + ' Y = ' + object.getY() + ' to X = ' + e.getX() + ' Y = ' + e.getY());
+							}
+						}
+					}
+				},
 				// bind: {
 				// 	html: '{htmlVisMon}'
 				// }
+				items: [{
+					xtype: 'panel',
+					// id: 'imagePipe',
+					itemId: 'vm_object',
+					viewModel: {
+						data: {
+							x_height: 10,
+							x_width: 10,
+							x_drag: false
+						}
+					},
+					resizable: {
+						dynamic: true,
+						pinned: true,
+						handles: 'all',
+						transparent: true,
+						// listeners: {
+						// 	resize: function(me, width, height, e, eOpts) {
+						// 		// var parent = Ext.ComponentQuery.query('#parent')[0];
+						// 		me.getViewModel().set('x_height', height);
+						// 		me.getViewModel().set('x_width', width);
+						// 	}
+						// }
+					},
+					// draggable: {
+					// 	delegate: 'img'
+					// },
+					listeners: {
+						resize: function(me, width, height, e, eOpts) {
+							// var parent = Ext.ComponentQuery.query('#parent')[0];
+							me.getViewModel().set('x_height', height);
+							me.getViewModel().set('x_width', width);
+						},
+						// move: function(me, x, y, eOpts) {
+						// 		console.log(me);
+						// 		console.log(x);
+						// 		console.log(y);
+						// 		console.log(eOpts);
+						// }
+						render: function(panel) {
+				    	panel.body.on('click', function() {
+				      	// console.log('click');
+								var object = Ext.ComponentQuery.query('#vm_object')[0];
+								if (object.getViewModel().get('x_drag')) {
+									object.getViewModel().set('x_drag', false);
+								} else {
+									object.getViewModel().set('x_drag', true);
+								}
+				      });
+				    },
+						el: {
+							// mousedown: function() {
+							// 	var object = Ext.ComponentQuery.query('#vm_object')[0];
+							// 	console.log('Mouse Down', arguments);
+							// 	object.getViewModel().set('x_drag', true);
+							// },
+							// mouseup: function() {
+							// 	var object = Ext.ComponentQuery.query('#vm_object')[0];
+							// 	console.log('Mouse Up', arguments);
+							// 	object.getViewModel().set('x_drag', false);
+							// },
+        		}
+					},
+					height: 100,
+					width: 100,
+					x: 100,
+					y: 100,
+					bind: {
+						html: '<img src="png/piping-ca-h.png" height={x_height} width={x_width}/>'
+					}
+				}]
 			}, {
 				region: 'south',
 				xtype: 'locking-grid',
@@ -137,17 +232,6 @@ Ext.define('Sencha_Draw.view.vm.VisualMonita', {
 			xtype: 'panel',
 			title: 'Visal Monita 2',
 			// html: '<h2>Visual Monita 2</h2>'
-			// resizable: {
-			// 	dynamic: true,
-			// 	pinned: true,
-			// 	handles: 'all'
-			// },
-			// draggable: {
-			// 	constrain: true
-			// },
-			// height: 100,
-			// width: 100,
-			html: '<img src="png/piping-ca-h.png" style="max-height:100%; max-width:100%;"/>'
   	}]
   }]
 });
