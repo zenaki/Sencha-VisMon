@@ -1,6 +1,6 @@
 Ext.define('Sencha_Draw.view.vm.test.LockGridStore', {
     extend: 'Ext.data.ArrayStore',
-    alias: 'store.companies',
+    // alias: 'store.companies',
     sorters: [{
                 property: 'slave_id',
                 direction: 'asc'

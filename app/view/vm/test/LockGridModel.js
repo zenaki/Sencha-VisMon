@@ -1,8 +1,8 @@
 Ext.define('Sencha_Draw.view.vm.test.LockGridModel', {
     extend: 'Ext.data.Model',
-    schema: {
-        namespace: 'Sencha_Draw.view.vm.test'
-    },
+    // schema: {
+    //     namespace: 'Sencha_Draw.view.vm.test'
+    // },
     fields: [
         {name: 'name'},
         {name: 'price', type: 'float'},

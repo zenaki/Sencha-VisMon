@@ -155,7 +155,7 @@ Ext.define('Sencha_Draw.view.vm.VisualMonita_Controller', {
 
     onAddLabelClick: function() {
       var me = this;
-      console.log('Tombol Add Label dipencet ..');
+      // console.log('Tombol Add Label dipencet ..');
       var label = Ext.ComponentQuery.query('#label_vismon')[0];
       var slave_id = Ext.ComponentQuery.query('#slave_id_vismon')[0];
       var titik_ukur = Ext.ComponentQuery.query('#titik_ukur_vismon')[0];
@@ -181,18 +181,49 @@ Ext.define('Sencha_Draw.view.vm.VisualMonita_Controller', {
       canvas.add({
         xtype: 'panel',
         title: label.getValue(),
+        viewModel: {
+          data: {
+            x_height: 10,
+            x_width: 10,
+            x_drag: false
+          }
+        },
         split: true,
         collapsible: true,
         collapsed: true,
+        floatable: false,
         bodyBorder: true,
         height: 100,
         width: 150,
+        tools: [{
+          type: 'close',
+          tooltip: 'Delete Label',
+          handler: function(event, toolEl, panelHeader) {
+            // console.log('event = '); console.log(event);
+            // console.log('toolEl = '); console.log(toolEl);
+            // console.log('paelHeader = '); console.log(panelHeader);
+            var canvas = Ext.ComponentQuery.query('#canvas')[0];
+            var object = Ext.getCmp(canvas.getViewModel().get('x_object'));
+            Ext.Msg.show({
+              title:'Delete Item',
+              message: 'Delete last click item ??',
+              buttons: Ext.Msg.YESNO,
+              icon: Ext.Msg.QUESTION,
+              fn: function(btn) {
+                if (btn === 'yes') {
+                  canvas.getViewModel().set('x_object', '');
+                  console.log(canvas.remove(object));
+                }
+              }
+            });
+          }
+        }],
         resizable: {
           dynamic: true,
           pinned: true,
           handles: 'all'
         },
-        draggable: true,
+        // draggable: true,
         items: {
           xtype: 'label',
           itemId: 'VAL_' + slave_id.getValue() + titik_ukur.getValue(),
@@ -202,6 +233,71 @@ Ext.define('Sencha_Draw.view.vm.VisualMonita_Controller', {
             // html: '{value_VisMon}'
             html: '<font face="courier" color="red">><h1 style="height: 100%; width: 100%; text-align: center; margin: 0; font-size: 2em;">{VAL_' + slave_id.getValue() + titik_ukur.getValue() + '}</h1></font>'
           }
+        },
+        floating: true,
+        renderTo: Ext.getBody(),
+        listeners: {
+          resize: function(me, width, height, e, eOpts) {
+            me.getViewModel().set('x_height', height);
+            me.getViewModel().set('x_width', width);
+          },
+          render: function(panel) {
+            panel.body.on('dblclick', function() {
+              // console.log('click');
+              var parent = Ext.ComponentQuery.query('#canvas')[0];
+              // console.log('panel = '); console.log(panel);
+              // console.log('panel.itemId = '); console.log(panel.id);
+              parent.getViewModel().set('x_object', panel.id);
+              var object = Ext.getCmp(panel.id);
+              if (!object.getViewModel().get('x_drag')) {
+                object.getViewModel().set('x_drag', true);
+              }
+            });
+            panel.body.on('click', function() {
+              // console.log('click');
+              var parent = Ext.ComponentQuery.query('#canvas')[0];
+              // console.log('panel = '); console.log(panel);
+              // console.log('panel.itemId = '); console.log(panel.id);
+              parent.getViewModel().set('x_object', panel.id);
+              var object = Ext.getCmp(panel.id);
+              if (object.getViewModel().get('x_drag')) {
+                object.getViewModel().set('x_drag', false);
+              }
+            });
+            panel.header.on('dblclick', function() {
+              // console.log('click');
+              var parent = Ext.ComponentQuery.query('#canvas')[0];
+              // console.log('panel = '); console.log(panel);
+              // console.log('panel.itemId = '); console.log(panel.id);
+              parent.getViewModel().set('x_object', panel.id);
+              var object = Ext.getCmp(panel.id);
+              if (!object.getViewModel().get('x_drag')) {
+                object.getViewModel().set('x_drag', true);
+              }
+            });
+            panel.header.on('click', function() {
+              // console.log('click');
+              var parent = Ext.ComponentQuery.query('#canvas')[0];
+              // console.log('panel = '); console.log(panel);
+              // console.log('panel.itemId = '); console.log(panel.id);
+              parent.getViewModel().set('x_object', panel.id);
+              var object = Ext.getCmp(panel.id);
+              if (object.getViewModel().get('x_drag')) {
+                object.getViewModel().set('x_drag', false);
+              }
+            });
+          },
+          el: {
+            mousemove: function(me, e, eOpts) {
+              var parent = Ext.ComponentQuery.query('#canvas')[0];
+              if (parent.getViewModel().get('x_object') != '') {
+                var object = Ext.getCmp(parent.getViewModel().get('x_object'));
+                if (object.getViewModel().get('x_drag')) {
+                  object.setPagePosition(me.getX()-10, me.getY()-10);
+                }
+              }
+            }
+          }
         }
       });
       // var item = Ext.ComponentQuery.query('#test_visual')[0];
@@ -209,5 +305,117 @@ Ext.define('Sencha_Draw.view.vm.VisualMonita_Controller', {
       // json = JSON.parse(data_bind);
       // item.setFieldLabel(label.getValue());
       // item.setBind(json);
+    },
+
+    onBoxReady: function() {
+      var canvas = Ext.ComponentQuery.query('#canvas')[0];
+      // var trash = Ext.ComponentQuery.query('#trash')[0];
+
+        this.CanvasDropTarget = new Ext.dd.DropTarget(canvas.body, {
+          ddGroup: 'hmi-grid-to-panel',
+          notifyEnter: function(ddSource, e, data) {
+            canvas.body.stopAnimation();
+            canvas.body.highlight();
+          },
+          notifyDrop: function(ddSource, e, data) {
+            var canvas = Ext.ComponentQuery.query('#canvas')[0];
+            var selectedRecord = ddSource.dragData.records[0];
+            // console.log(selectedRecord.data['onlocal']);
+            // console.log('mouse X = ' + me.getX() + ' canvas X = ' + parent.getX() + ' realX = ' + (me.getX() - parent.getX()));
+            // console.log('mouse Y = ' + me.getY() + ' canvas Y = ' + parent.getY() + ' realY = ' + (me.getY() - parent.getY()));
+            var posX = e.getX() - canvas.getX();
+            var posY = e.getY() - canvas.getY() - 35;
+            posX = e.getX();
+            posY = e.getY();
+            // console.log('dropX = ' + posX);
+            // console.log('dropY = ' + posY);
+            canvas.add({
+    					xtype: 'panel',
+    					viewModel: {
+    						data: {
+    							x_height: 10,
+    							x_width: 10,
+    							x_drag: false,
+                  x_path: selectedRecord.data['onlocal']
+    						}
+    					},
+    					resizable: {
+    						dynamic: true,
+    						pinned: true,
+    						handles: 'all',
+    						transparent: true
+    					},
+    					listeners: {
+    						resize: function(me, width, height, e, eOpts) {
+    							me.getViewModel().set('x_height', height);
+    							me.getViewModel().set('x_width', width);
+    						},
+    						render: function(panel) {
+    				    	panel.body.on('dblclick', function() {
+    				      	// console.log('click');
+                    var parent = Ext.ComponentQuery.query('#canvas')[0];
+                    // console.log('panel = '); console.log(panel);
+                    // console.log('panel.itemId = '); console.log(panel.id);
+                    parent.getViewModel().set('x_object', panel.id);
+                    var object = Ext.getCmp(panel.id);
+    								if (!object.getViewModel().get('x_drag')) {
+    									object.getViewModel().set('x_drag', true);
+    								}
+    				      });
+                  panel.body.on('click', function() {
+    				      	// console.log('click');
+                    var parent = Ext.ComponentQuery.query('#canvas')[0];
+                    // console.log('panel = '); console.log(panel);
+                    // console.log('panel.itemId = '); console.log(panel.id);
+                    parent.getViewModel().set('x_object', panel.id);
+    								var object = Ext.getCmp(panel.id);
+    								if (object.getViewModel().get('x_drag')) {
+    									object.getViewModel().set('x_drag', false);
+    								}
+    				      });
+    				    },
+                el: {
+      						mousemove: function(me, e, eOpts) {
+                    var parent = Ext.ComponentQuery.query('#canvas')[0];
+                    if (parent.getViewModel().get('x_object') != '') {
+                      var object = Ext.getCmp(parent.getViewModel().get('x_object'));
+        							if (object.getViewModel().get('x_drag')) {
+        								object.setPagePosition(me.getX()-10, me.getY()-10);
+        							}
+                    }
+      						}
+      					}
+    					},
+    					height: 50,
+    					width: 50,
+              floating: {
+                shadow: false
+              },
+              renderTo: Ext.getBody(),
+    					x: posX,
+    					y: posY,
+    					bind: {
+    						html: '<img src="{x_path}" height={x_height} width={x_width}/>'
+    					}
+    				});
+          }
+        });
+    },
+
+    onTrashClick: function() {
+      var canvas = Ext.ComponentQuery.query('#canvas')[0];
+      var object = Ext.getCmp(canvas.getViewModel().get('x_object'));
+      Ext.Msg.show({
+        title:'Delete Item',
+        message: 'Delete last click item ??',
+        buttons: Ext.Msg.YESNO,
+        icon: Ext.Msg.QUESTION,
+        fn: function(btn) {
+          if (btn === 'yes') {
+            canvas.getViewModel().set('x_object', '');
+            console.log(canvas.remove(object));
+          }
+        }
+      });
     }
 });

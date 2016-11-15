@@ -11,8 +11,8 @@ Ext.define('Sencha_Draw.view.vm.VisualMonita', {
 
   requires: [
     'Sencha_Draw.view.vm.VisualMonita_Controller',
-    'Sencha_Draw.view.vm.VisualMonita_Model',
 		'Sencha_Draw.view.vm.test.LockGridView',
+    'Sencha_Draw.view.vm.item.hmi-items',
     'Ext.ux.WebSocket',
     'Ext.ux.WebSocketManager'
   ],
@@ -32,6 +32,10 @@ Ext.define('Sencha_Draw.view.vm.VisualMonita', {
     type: 'border'
   },
 
+  listeners: {
+    boxReady: 'onBoxReady'
+  },
+
   items: [{
     xtype: 'panel',
     title: '<h2>Visual Monita</h2>',
@@ -44,7 +48,9 @@ Ext.define('Sencha_Draw.view.vm.VisualMonita', {
     width: 450,
     split: true,
     collapsible: true,
+    collapsed: true,
     bodyPadding: 10,
+    floatable: false,
     items:[{
       xtype: 'fieldcontainer',
       layout: 'hbox',
@@ -91,142 +97,107 @@ Ext.define('Sencha_Draw.view.vm.VisualMonita', {
 				type: 'border',
 				align: 'stretch'
 			},
-			listeners: {
-				containercontextmenu: function(grid, e) {
-        	// var position = e.getXY();
-          // e.stopEvent();
-          // menu_grid.showAt(position);
-					console.log("Right Click Container Context Menu");
-        }
-      },
 			items: [{
 				xtype: 'panel',
 				itemId: 'canvas',
 				region: 'center',
-				tbar: [{
-					xtype: 'textfield',
-					itemId: 'label_vismon',
-        	fieldLabel: 'Label'
-				}, {
-					xtype: 'textfield',
-					itemId: 'slave_id_vismon',
-        	fieldLabel: 'Slave ID'
-				}, {
-					xtype: 'textfield',
-					itemId: 'titik_ukur_vismon',
-        	fieldLabel: 'Titik Ukur'
-				}, {
-        	text: 'Add Label',
-        	listeners: {
-            click: 'onAddLabelClick'
-        	}
-    		}],
+        id: 'CanvasID',
+        dockedItems: [{
+          xtype: 'toolbar',
+          dock: 'top',
+          items: [{
+            xtype: 'button',
+            // itemId: 'trash',
+            text: 'Delete Item',
+            listeners: {
+              click: 'onTrashClick'
+            }
+          }, {
+  					xtype: 'textfield',
+  					itemId: 'label_vismon',
+          	fieldLabel: 'Label'
+  				}, {
+  					xtype: 'textfield',
+  					itemId: 'slave_id_vismon',
+          	fieldLabel: 'Slave ID'
+  				}, {
+  					xtype: 'textfield',
+  					itemId: 'titik_ukur_vismon',
+          	fieldLabel: 'Titik Ukur'
+  				}, {
+            xtype: 'button',
+          	text: 'Add Label',
+          	listeners: {
+              click: 'onAddLabelClick'
+          	}
+      		}]
+        }],
+        viewModel: {
+          data: {
+            x_object: ''
+          }
+        },
 				listeners: {
 					el: {
-						mousemove: function(e) {
-							var object = Ext.ComponentQuery.query('#vm_object')[0];
-							// console.log('Page X = '); console.log(e.getX());
-							// console.log('Page Y = '); console.log(e.getY());
-							if (object.getViewModel().get('x_drag')) {
-								// console.log('Move Object X = ' + object.getX() + ' Y = ' + object.getY() + ' to X = ' + e.getX() + ' Y = ' + e.getY());
-								// var data = object.getViewModel().getData();
-								// object.el.setX(e.getX);
-								// object.el.setY(e.getY);
-								object.setPagePosition(e.getX()-10, e.getY()-10);
-							} else {
-								// console.log('NOT Move Object X = ' + object.getX() + ' Y = ' + object.getY() + ' to X = ' + e.getX() + ' Y = ' + e.getY());
-							}
+						mousemove: function(me, e, eOpts) {
+              var parent = Ext.ComponentQuery.query('#canvas')[0];
+              // console.log('canvas.getX() = ' + (me.getX() - parent.getX()));
+              // console.log('canvas.getY() = ' + (me.getY() - parent.getY()));
+              // console.log('mouse X = ' + me.getX() + ' canvas X = ' + parent.getX() + ' realX = ' + (me.getX() - parent.getX()));
+              // console.log('mouse Y = ' + me.getY() + ' canvas Y = ' + parent.getY() + ' realY = ' + (me.getY() - parent.getY()));
+              if (parent.getViewModel().get('x_object') != '') {
+                // console.log(parent.getViewModel().get('x_object'));
+                // var object = Ext.ComponentQuery.query('#vm_object')[0];
+                // var object = Ext.ComponentQuery.query('#' + parent.getViewModel().get('x_object'))[0];
+                var object = Ext.getCmp(parent.getViewModel().get('x_object'));
+  							// console.log('Page X = '); console.log(e.getX());
+  							// console.log('Page Y = '); console.log(e.getY());
+  							if (object.getViewModel().get('x_drag')) {
+  								// console.log('Move Object X = ' + object.getX() + ' Y = ' + object.getY() + ' to X = ' + e.getX() + ' Y = ' + e.getY());
+  								// var data = object.getViewModel().getData();
+  								// object.el.setX(e.getX);
+  								// object.el.setY(e.getY);
+  								object.setPagePosition(me.getX()-10, me.getY()-10);
+  							} else {
+  								// console.log('NOT Move Object X = ' + object.getX() + ' Y = ' + object.getY() + ' to X = ' + e.getX() + ' Y = ' + e.getY());
+  							}
+              }
 						}
 					}
-				},
-				// bind: {
-				// 	html: '{htmlVisMon}'
-				// }
-				items: [{
-					xtype: 'panel',
-					// id: 'imagePipe',
-					itemId: 'vm_object',
-					viewModel: {
-						data: {
-							x_height: 10,
-							x_width: 10,
-							x_drag: false
-						}
-					},
-					resizable: {
-						dynamic: true,
-						pinned: true,
-						handles: 'all',
-						transparent: true,
-						// listeners: {
-						// 	resize: function(me, width, height, e, eOpts) {
-						// 		// var parent = Ext.ComponentQuery.query('#parent')[0];
-						// 		me.getViewModel().set('x_height', height);
-						// 		me.getViewModel().set('x_width', width);
-						// 	}
-						// }
-					},
-					// draggable: {
-					// 	delegate: 'img'
-					// },
-					listeners: {
-						resize: function(me, width, height, e, eOpts) {
-							// var parent = Ext.ComponentQuery.query('#parent')[0];
-							me.getViewModel().set('x_height', height);
-							me.getViewModel().set('x_width', width);
-						},
-						// move: function(me, x, y, eOpts) {
-						// 		console.log(me);
-						// 		console.log(x);
-						// 		console.log(y);
-						// 		console.log(eOpts);
-						// }
-						render: function(panel) {
-				    	panel.body.on('click', function() {
-				      	// console.log('click');
-								var object = Ext.ComponentQuery.query('#vm_object')[0];
-								if (object.getViewModel().get('x_drag')) {
-									object.getViewModel().set('x_drag', false);
-								} else {
-									object.getViewModel().set('x_drag', true);
-								}
-				      });
-				    },
-						el: {
-							// mousedown: function() {
-							// 	var object = Ext.ComponentQuery.query('#vm_object')[0];
-							// 	console.log('Mouse Down', arguments);
-							// 	object.getViewModel().set('x_drag', true);
-							// },
-							// mouseup: function() {
-							// 	var object = Ext.ComponentQuery.query('#vm_object')[0];
-							// 	console.log('Mouse Up', arguments);
-							// 	object.getViewModel().set('x_drag', false);
-							// },
-        		}
-					},
-					height: 100,
-					width: 100,
-					x: 100,
-					y: 100,
-					bind: {
-						html: '<img src="png/piping-ca-h.png" height={x_height} width={x_width}/>'
-					}
-				}]
+				}
 			}, {
+        region: 'east',
+        xtype: 'panel',
+        title: 'HMI Items',
+        layout: 'accordion',
+				split: true,
+				collapsible: true,
+				collapsed: false,
+        floatable: false,
+				width: 150,
+				// autoLoad: true,
+				// autoRender: true,
+				// autoShow: true
+        items: [{
+          xtype: 'hmi-grid',
+          title: 'On Local'
+        }, {
+          title: 'Uploaded',
+          html: 'Empty'
+        }]
+      }, {
 				region: 'south',
 				xtype: 'locking-grid',
 				itemId: 'tableVisMon',
 				split: true,
 				collapsible: true,
 				collapsed: true,
+        floatable: false,
 				height: 300,
 				title: 'Table Data Visual Monita',
 				autoLoad: true,
 				autoRender: true,
 				autoShow: true
-				// columns: [{text: 'Slave ID', dataIndex: 'slave_id'}]
-				// bind: {columns: {columnsVisMon}}
 			}]
   	}, {
 			xtype: 'panel',

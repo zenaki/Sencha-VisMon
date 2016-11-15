@@ -14,13 +14,15 @@ Ext.define('Sencha_Draw.Application', {
 
     stores: [
         // TODO: add global / shared stores here
-        'Sencha_Draw.view.vm.test.LockGridStore'
+        'Sencha_Draw.view.vm.test.LockGridStore',
+        'Sencha_Draw.view.vm.item.hmi-items-store'
         // 'Sencha_Draw.view.vm.test.dynamic.DynamicGridStore'
     ],
 
-    // models: [
-    //   'Sencha_Draw.view.vm.test.dynamic.DynamicGridModel'
-    // ],
+    models: [
+      'Sencha_Draw.view.vm.test.LockGridModel',
+      'Sencha_Draw.view.vm.item.hmi-items-model'
+    ],
 
     launch: function () {
         // TODO - Launch the application
