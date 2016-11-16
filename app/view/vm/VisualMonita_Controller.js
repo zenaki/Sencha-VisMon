@@ -349,6 +349,11 @@ Ext.define('Sencha_Draw.view.vm.VisualMonita_Controller', {
     						resize: function(me, width, height, e, eOpts) {
     							me.getViewModel().set('x_height', height);
     							me.getViewModel().set('x_width', width);
+
+                  var o_posX = Ext.ComponentQuery.query('#object_posx')[0]; o_posX.setValue(me.getX());
+                  var o_posY = Ext.ComponentQuery.query('#object_posy')[0]; o_posY.setValue(me.getY());
+                  var o_height = Ext.ComponentQuery.query('#object_height')[0]; o_height.setValue(me.getHeight());
+                  var o_width = Ext.ComponentQuery.query('#object_width')[0]; o_width.setValue(me.getWidth());
     						},
     						render: function(panel) {
     				    	panel.body.on('dblclick', function() {
@@ -361,6 +366,11 @@ Ext.define('Sencha_Draw.view.vm.VisualMonita_Controller', {
     								if (!object.getViewModel().get('x_drag')) {
     									object.getViewModel().set('x_drag', true);
     								}
+
+                    var o_posX = Ext.ComponentQuery.query('#object_posx')[0]; o_posX.setValue(object.getX());
+                    var o_posY = Ext.ComponentQuery.query('#object_posy')[0]; o_posY.setValue(object.getY());
+                    var o_height = Ext.ComponentQuery.query('#object_height')[0]; o_height.setValue(object.getHeight());
+                    var o_width = Ext.ComponentQuery.query('#object_width')[0]; o_width.setValue(object.getWidth());
     				      });
                   panel.body.on('click', function() {
     				      	// console.log('click');
@@ -372,6 +382,11 @@ Ext.define('Sencha_Draw.view.vm.VisualMonita_Controller', {
     								if (object.getViewModel().get('x_drag')) {
     									object.getViewModel().set('x_drag', false);
     								}
+
+                    var o_posX = Ext.ComponentQuery.query('#object_posx')[0]; o_posX.setValue(object.getX());
+                    var o_posY = Ext.ComponentQuery.query('#object_posy')[0]; o_posY.setValue(object.getY());
+                    var o_height = Ext.ComponentQuery.query('#object_height')[0]; o_height.setValue(object.getHeight());
+                    var o_width = Ext.ComponentQuery.query('#object_width')[0]; o_width.setValue(object.getWidth());
     				      });
     				    },
                 el: {
@@ -380,7 +395,11 @@ Ext.define('Sencha_Draw.view.vm.VisualMonita_Controller', {
                     if (parent.getViewModel().get('x_object') != '') {
                       var object = Ext.getCmp(parent.getViewModel().get('x_object'));
         							if (object.getViewModel().get('x_drag')) {
-        								object.setPagePosition(me.getX()-10, me.getY()-10);
+        								object.setPagePosition(me.getX()-(object.getWidth()/2), me.getY()-(object.getHeight()/2));
+                        var o_posX = Ext.ComponentQuery.query('#object_posx')[0]; o_posX.setValue(object.getX());
+                        var o_posY = Ext.ComponentQuery.query('#object_posy')[0]; o_posY.setValue(object.getY());
+                        var o_height = Ext.ComponentQuery.query('#object_height')[0]; o_height.setValue(object.getHeight());
+                        var o_width = Ext.ComponentQuery.query('#object_width')[0]; o_width.setValue(object.getWidth());
         							}
                     }
       						}
@@ -413,9 +432,32 @@ Ext.define('Sencha_Draw.view.vm.VisualMonita_Controller', {
         fn: function(btn) {
           if (btn === 'yes') {
             canvas.getViewModel().set('x_object', '');
-            console.log(canvas.remove(object));
+            // console.log(canvas.remove(object));
+            canvas.remove(object);
+            Ext.ComponentQuery.query('#object_posx')[0].setValue('');
+            Ext.ComponentQuery.query('#object_posy')[0].setValue('');
+            Ext.ComponentQuery.query('#object_height')[0].setValue('');
+            Ext.ComponentQuery.query('#object_width')[0].setValue('');
           }
         }
       });
+    },
+
+    onToolbarObjectValueChange: function(field, e) {
+      if (e.getKey() == e.ENTER) {
+        var canvas = Ext.ComponentQuery.query('#canvas')[0];
+        var object = Ext.getCmp(canvas.getViewModel().get('x_object'));
+        var o_posX = Ext.ComponentQuery.query('#object_posx')[0];
+        var o_posY = Ext.ComponentQuery.query('#object_posy')[0];
+        var o_height = Ext.ComponentQuery.query('#object_height')[0];
+        var o_width = Ext.ComponentQuery.query('#object_width')[0];
+
+        // object.setPagePosition(o_posX.getValue(), o_posY.getValue(), true);
+        object.setPosition(o_posX.getValue(), o_posY.getValue(), true);
+        object.setSize(o_width.getValue(), o_height.getValue());
+
+        // console.log('object = '); console.log(object);
+        // console.log('o_posX = ' + o_posX.getValue() + ' o_posY = ' + o_posY.getValue() + ' o_height = ' + o_height.getValue() + ' o_width = ' + o_width.getValue());
+      }
     }
 });

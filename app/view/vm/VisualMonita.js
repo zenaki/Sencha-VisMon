@@ -13,6 +13,7 @@ Ext.define('Sencha_Draw.view.vm.VisualMonita', {
     'Sencha_Draw.view.vm.VisualMonita_Controller',
 		'Sencha_Draw.view.vm.test.LockGridView',
     'Sencha_Draw.view.vm.item.hmi-items',
+    // 'Sencha_Draw.view.vm.json_grid.json_grid',
     'Ext.ux.WebSocket',
     'Ext.ux.WebSocketManager'
   ],
@@ -131,6 +132,38 @@ Ext.define('Sencha_Draw.view.vm.VisualMonita', {
               click: 'onAddLabelClick'
           	}
       		}]
+        }, {
+          xtype: 'toolbar',
+          dock: 'bottom',
+          items: [{
+  					xtype: 'textfield',
+  					itemId: 'object_posx',
+          	fieldLabel: 'X',
+            listeners: {
+              specialKey: 'onToolbarObjectValueChange'
+            }
+  				}, {
+  					xtype: 'textfield',
+  					itemId: 'object_posy',
+          	fieldLabel: 'Y',
+            listeners: {
+              specialKey: 'onToolbarObjectValueChange'
+            }
+  				}, {
+  					xtype: 'textfield',
+  					itemId: 'object_height',
+          	fieldLabel: 'Height',
+            listeners: {
+              specialKey: 'onToolbarObjectValueChange'
+            }
+  				}, {
+            xtype: 'textfield',
+  					itemId: 'object_width',
+          	fieldLabel: 'Width',
+            listeners: {
+              specialKey: 'onToolbarObjectValueChange'
+            }
+      		}]
         }],
         viewModel: {
           data: {
@@ -158,6 +191,10 @@ Ext.define('Sencha_Draw.view.vm.VisualMonita', {
   								// object.el.setX(e.getX);
   								// object.el.setY(e.getY);
   								object.setPagePosition(me.getX()-10, me.getY()-10);
+                  var o_posX = Ext.ComponentQuery.query('#object_posx')[0]; o_posX.setValue(object.getX());
+                  var o_posY = Ext.ComponentQuery.query('#object_posy')[0]; o_posY.setValue(object.getY());
+                  var o_height = Ext.ComponentQuery.query('#object_height')[0]; o_height.setValue(object.getHeight());
+                  var o_width = Ext.ComponentQuery.query('#object_width')[0]; o_width.setValue(object.getWidth());
   							} else {
   								// console.log('NOT Move Object X = ' + object.getX() + ' Y = ' + object.getY() + ' to X = ' + e.getX() + ' Y = ' + e.getY());
   							}
@@ -203,6 +240,9 @@ Ext.define('Sencha_Draw.view.vm.VisualMonita', {
 			xtype: 'panel',
 			title: 'Visal Monita 2',
 			// html: '<h2>Visual Monita 2</h2>'
+      // items: [{
+      //   xtype: 'json_grid'
+      // }]
   	}]
   }]
 });
