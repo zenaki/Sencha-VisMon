@@ -332,7 +332,9 @@ Ext.define('Sencha_Draw.view.vm.VisualMonita_Controller', {
               if (parent.getViewModel().get('x_object') != '') {
                 var object = Ext.getCmp(parent.getViewModel().get('x_object'));
                 if (object.getViewModel().get('x_drag')) {
-                  object.setPagePosition(me.getX()-10, me.getY()-10);
+                  // object.setPagePosition(me.getX()-(object.getWidth()/2), me.getY()-(object.getHeight()/2));
+                  // object.setPagePosition(me.getX()-10, me.getY()-10);
+                  object.setPagePosition(me.getX()-(object.getWidth()/2), me.getY()-20);
 
                   var o_posX = Ext.ComponentQuery.query('#object_posx')[0]; o_posX.setValue(object.getX());
                   var o_posY = Ext.ComponentQuery.query('#object_posy')[0]; o_posY.setValue(object.getY());
