@@ -59,6 +59,7 @@ Ext.define('Sencha_Draw.view.vm.VisualMonita', {
       items: [{
         xtype: 'textfield',
         name: 'URL',
+        value: 'ws://119.18.154.235:1234',
         flex: 1,
     		fieldLabel: 'WebSocket URL',
     		// labelAlign: 'top',
@@ -107,6 +108,15 @@ Ext.define('Sencha_Draw.view.vm.VisualMonita', {
           xtype: 'toolbar',
           dock: 'top',
           items: [{
+            xtype: 'button',
+            text: 'Save Visual Monita',
+            listeners: {
+              click: 'onSaveVisualMonita',
+              download: function(json) {
+                console.log(json);
+              }
+            }
+          }, {
             xtype: 'button',
             // itemId: 'trash',
             text: 'Delete Item',
