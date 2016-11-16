@@ -198,6 +198,7 @@ Ext.define('Sencha_Draw.view.vm.VisualMonita_Controller', {
         bodyBorder: true,
         height: 100,
         width: 150,
+        bodyStyle: 'background:transparent;',
         tools: [{
           type: 'close',
           tooltip: 'Delete Label',
@@ -247,7 +248,8 @@ Ext.define('Sencha_Draw.view.vm.VisualMonita_Controller', {
           html: '<font face="courier" color="red">><h1 style="height: 100%; width: 100%; text-align: center; margin: 0; font-size: 2em;">{VAL_' + slave_id.getValue() + titik_ukur.getValue() + '}</h1></font>'
         },
         floating: true,
-        renderTo: Ext.getBody(),
+        // renderTo: Ext.getBody(),
+        renderTo: 'CanvasID',
         listeners: {
           resize: function(me, width, height, e, eOpts) {
             me.getViewModel().set('x_height', height);
@@ -366,9 +368,9 @@ Ext.define('Sencha_Draw.view.vm.VisualMonita_Controller', {
             // console.log('mouse X = ' + me.getX() + ' canvas X = ' + parent.getX() + ' realX = ' + (me.getX() - parent.getX()));
             // console.log('mouse Y = ' + me.getY() + ' canvas Y = ' + parent.getY() + ' realY = ' + (me.getY() - parent.getY()));
             var posX = e.getX() - canvas.getX();
-            var posY = e.getY() - canvas.getY() - 35;
-            posX = e.getX();
-            posY = e.getY();
+            var posY = e.getY() - canvas.getY(); // - 35;
+            // posX = e.getX();
+            // posY = e.getY();
             // console.log('dropX = ' + posX);
             // console.log('dropY = ' + posY);
             canvas.add({
@@ -438,6 +440,7 @@ Ext.define('Sencha_Draw.view.vm.VisualMonita_Controller', {
                     if (parent.getViewModel().get('x_object') != '') {
                       var object = Ext.getCmp(parent.getViewModel().get('x_object'));
         							if (object.getViewModel().get('x_drag')) {
+                        // console.log('x = ' + (me.getX()-(object.getWidth()/2)) + ' y = ' + (me.getY()-(object.getHeight()/2)));
         								object.setPagePosition(me.getX()-(object.getWidth()/2), me.getY()-(object.getHeight()/2));
                         var o_posX = Ext.ComponentQuery.query('#object_posx')[0]; o_posX.setValue(object.getX());
                         var o_posY = Ext.ComponentQuery.query('#object_posy')[0]; o_posY.setValue(object.getY());
@@ -452,7 +455,9 @@ Ext.define('Sencha_Draw.view.vm.VisualMonita_Controller', {
     					width: 50,
               floating: true,
               shadow: false,
-              renderTo: Ext.getBody(),
+              // renderTo: Ext.getBody(),
+              renderTo: 'CanvasID',
+              bodyStyle: 'background:transparent;',
     					x: posX,
     					y: posY,
     					bind: {
@@ -530,6 +535,7 @@ Ext.define('Sencha_Draw.view.vm.VisualMonita_Controller', {
                         "width": item.getWidth(),
                         "x": item.getX(),
                         "y": item.getY(),
+                        "bodyStyle": "background:transparent;",
                         "html": item.html
                       });
                     } else if (item.getViewModel().get('x_type') == 'item_label') {
@@ -544,6 +550,7 @@ Ext.define('Sencha_Draw.view.vm.VisualMonita_Controller', {
                         "width": item.getWidth(),
                         "x": item.getX(),
                         "y": item.getY(),
+                        "bodyStyle": "background:transparent;",
                         "html": "<font face=\"courier\" color=\"red\">><h1 style=\"height: 100%; width: 100%; text-align: center; margin: 0; font-size: 2em;\">{VAL_" + item.getViewModel().get('x_slave_id') + item.getViewModel().get('x_titik_ukur') + "}</h1></font>"
                       });
                     }
