@@ -407,9 +407,8 @@ Ext.define('Sencha_Draw.view.vm.VisualMonita_Controller', {
     					},
     					height: 50,
     					width: 50,
-              floating: {
-                shadow: false
-              },
+              floating: true,
+              shadow: false,
               renderTo: Ext.getBody(),
     					x: posX,
     					y: posY,
