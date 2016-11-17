@@ -92,7 +92,7 @@ Ext.define('Sencha_Draw.view.vm.VisualMonita', {
     region: 'center',
     xtype: 'tabpanel',
     items:[{
-      title: 'Visual 1',
+      title: 'Editor',
       // html: '<h2>Visual Monita 1</h2>',
 			xtype: 'container',
 			layout: {
@@ -111,10 +111,13 @@ Ext.define('Sencha_Draw.view.vm.VisualMonita', {
             xtype: 'button',
             text: 'Save Visual Monita',
             listeners: {
-              click: 'onSaveVisualMonita',
-              download: function(json) {
-                console.log(json);
-              }
+              click: 'onSaveVisualMonita'
+            }
+          }, {
+            xtype: 'button',
+            text: 'Load Visual Monita',
+            listeners: {
+              click: 'onloadVisualMonitaEditor'
             }
           }, {
             xtype: 'button',
@@ -217,7 +220,8 @@ Ext.define('Sencha_Draw.view.vm.VisualMonita', {
               }
 						}
 					}
-				}
+				},
+        scrollable: true
 			}, {
         region: 'east',
         xtype: 'panel',
@@ -254,11 +258,22 @@ Ext.define('Sencha_Draw.view.vm.VisualMonita', {
 			}]
   	}, {
 			xtype: 'panel',
-			title: 'Visal Monita 2',
+			title: 'Visal Monita',
+      id: 'visual_monita',
+      itemId: 'visual_monita',
+      scrollable: true,
 			// html: '<h2>Visual Monita 2</h2>'
-      // items: [{
-      //   xtype: 'json_grid'
-      // }]
+      dockedItems: [{
+        xtype: 'toolbar',
+        dock: 'top',
+        items: [{
+          xtype: 'button',
+          text: 'Load Visual Monita',
+          listeners: {
+            click: 'onloadVisualMonita'
+          }
+        }]
+      }],
   	}]
   }]
 });
