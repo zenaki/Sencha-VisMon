@@ -16,6 +16,7 @@ Ext.define('Sencha_Draw.Application', {
         // TODO: add global / shared stores here
         'Sencha_Draw.view.vm.test.LockGridStore',
         'Sencha_Draw.view.vm.item.hmi-items-store',
+        'Sencha_Draw.view.vm.uploaded_item.hmi-items-store'
         // 'Sencha_Draw.view.vm.json_grid.json_store'
         // 'Sencha_Draw.view.vm.test.dynamic.DynamicGridStore'
     ],
@@ -23,6 +24,7 @@ Ext.define('Sencha_Draw.Application', {
     models: [
       'Sencha_Draw.view.vm.test.LockGridModel',
       'Sencha_Draw.view.vm.item.hmi-items-model',
+      'Sencha_Draw.view.vm.uploaded_item.hmi-items-model'
       // 'Sencha_Draw.view.vm.json_grid.json_model'
     ],
 

@@ -1,7 +1,7 @@
-Ext.define('Sencha_Draw.view.vm.item.hmi-items', {
+Ext.define('Sencha_Draw.view.vm.uploaded_item.hmi-items', {
     extend: 'Ext.grid.Panel',
-    xtype: 'hmi-grid',
-    store: 'Sencha_Draw.view.vm.item.hmi-items-store',
+    xtype: 'hmi-uploaded-grid',
+    store: 'Sencha_Draw.view.vm.uploaded_item.hmi-items-store',
     // store: Ext.create('Sencha_Draw.view.vm.item.hmi-items-store'),
     // title: 'HMI Items',
     hideHeaders: true,
@@ -21,7 +21,7 @@ Ext.define('Sencha_Draw.view.vm.item.hmi-items', {
     },
     columns: [{
       // header: 'On Local',
-      dataIndex: 'onlocal',
+      dataIndex: 'uploaded-Items',
       renderer: function(value){
         return '<img src="' + value + '" height="200" width="200" />';
       },

@@ -13,9 +13,11 @@ Ext.define('Sencha_Draw.view.vm.VisualMonita', {
     'Sencha_Draw.view.vm.VisualMonita_Controller',
 		'Sencha_Draw.view.vm.test.LockGridView',
     'Sencha_Draw.view.vm.item.hmi-items',
+    'Sencha_Draw.view.vm.uploaded_item.hmi-items',
     // 'Sencha_Draw.view.vm.json_grid.json_grid',
     'Ext.ux.WebSocket',
-    'Ext.ux.WebSocketManager'
+    'Ext.ux.WebSocketManager',
+    'Ext.ux.upload.*'
   ],
 
   xtype: 'visual-monita',
@@ -192,6 +194,15 @@ Ext.define('Sencha_Draw.view.vm.VisualMonita', {
               // console.log('mouse X = ' + me.getX() + ' canvas X = ' + parent.getX() + ' realX = ' + (me.getX() - parent.getX()));
               // console.log('mouse Y = ' + me.getY() + ' canvas Y = ' + parent.getY() + ' realY = ' + (me.getY() - parent.getY()));
               if (parent.getViewModel().get('x_object') != '') {
+                var AllObject = Ext.ComponentQuery.query('#canvas > panel');
+                // console.log('AllObject = '); console.log(AllObject);
+                for (var i = 0; i < Object.keys(AllObject).length; i++) {
+                  if (AllObject[i].getId() == parent.getViewModel().get('x_object')) {
+                    AllObject[i].el.setStyle({backgroundImage: 'url(border-image.png)'});
+                  } else {
+                    AllObject[i].el.setStyle({backgroundImage: 'url(border-image-null.png)'});
+                  }
+                }
                 // console.log(parent.getViewModel().get('x_object'));
                 // var object = Ext.ComponentQuery.query('#vm_object')[0];
                 // var object = Ext.ComponentQuery.query('#' + parent.getViewModel().get('x_object'))[0];
@@ -216,9 +227,13 @@ Ext.define('Sencha_Draw.view.vm.VisualMonita', {
                   var o_width = Ext.ComponentQuery.query('#object_width')[0]; o_width.setValue(object.getWidth());
   							} else {
   								// console.log('NOT Move Object X = ' + object.getX() + ' Y = ' + object.getY() + ' to X = ' + e.getX() + ' Y = ' + e.getY());
+
   							}
               }
-						}
+						},
+            contextmenu: function() {
+              console.log('Right Clicked on Canvas');
+            }
 					}
 				},
         scrollable: true
@@ -231,7 +246,7 @@ Ext.define('Sencha_Draw.view.vm.VisualMonita', {
 				collapsible: true,
 				collapsed: false,
         floatable: false,
-				width: 150,
+				width: 250,
 				// autoLoad: true,
 				// autoRender: true,
 				// autoShow: true
@@ -239,8 +254,48 @@ Ext.define('Sencha_Draw.view.vm.VisualMonita', {
           xtype: 'hmi-grid',
           title: 'On Local'
         }, {
-          title: 'Uploaded',
-          html: 'Empty'
+          xtype: 'panel',
+          title: 'Upload Item',
+          items: [{
+            xtype: 'form',
+            // title: 'Upload a Photo',
+            bodyPadding: 10,
+            items: [{
+              xtype: 'filefield',
+              name: 'new_item',
+              // buttonOnly: true,
+              hideLabel: true,
+              allowBlank: false,
+              anchor: '100%',
+              buttonText: 'Browse Items...'
+            }],
+            buttons: [{
+              text: 'Upload',
+              handler: function() {
+                var form = this.up('form').getForm();
+                if (form.isValid()) {
+                  form.submit({
+                    url: 'test_upload.php',
+                    waitMsg: 'Uploading your photo...',
+                    success: function(fp, o) {
+                      Ext.Msg.alert('Success', 'Item "' + o.result.file + '" has been uploaded.');
+                      var grid = Ext.ComponentQuery.query('#uploadedGrid')[0];
+                      grid.getStore().reload();
+                    }
+                  });
+                }
+              }
+            }, {
+              text: 'Refresh',
+              handler: function() {
+                var grid = Ext.ComponentQuery.query('#uploadedGrid')[0];
+                grid.getStore().reload();
+              }
+            }]
+          }, {
+            xtype: 'hmi-uploaded-grid',
+            itemId: 'uploadedGrid'
+          }]
         }]
       }, {
 				region: 'south',
