@@ -1,14 +1,14 @@
 <?php
-if(isset($_FILES['new_item']['name'])){
-    $file_count = count($_FILES['new_item']['name']);
+if(isset($_FILES['visualFiles']['name'])){
+    $file_count = count($_FILES['visualFiles']['name']);
     if ($file_count > 0) {
       $errCount = 0; $file = '';
       for ($i = 0; $i < $file_count; $i++) {
-        $file_tmp  = $_FILES['new_item']['tmp_name'][$i];
-        $file_name = $_FILES['new_item']['name'][$i];
-        $file_size = $_FILES['new_item']['size'][$i];
+        $file_tmp  = $_FILES['visualFiles']['tmp_name'][$i];
+        $file_name = $_FILES['visualFiles']['name'][$i];
+        $file_size = $_FILES['visualFiles']['size'][$i];
 
-        move_uploaded_file($file_tmp, "tmp/$file_name");
+        move_uploaded_file($file_tmp, "visual_files/$file_name");
         if(!is_uploaded_file($file_tmp)) {
           if(strlen($file) > 0) {
             $file = $file . ', ' . $file_name;
@@ -36,11 +36,11 @@ if(isset($_FILES['new_item']['name'])){
         echo json_encode($response);
       }
     } else {
-      $file_tmp  = $_FILES['new_item']['tmp_name'][0];
-      $file_name = $_FILES['new_item']['name'][0];
-      $file_size = $_FILES['new_item']['size'][0];
+      $file_tmp  = $_FILES['visualFiles']['tmp_name'][0];
+      $file_name = $_FILES['visualFiles']['name'][0];
+      $file_size = $_FILES['visualFiles']['size'][0];
 
-      move_uploaded_file($file_tmp, "tmp/$file_name");
+      move_uploaded_file($file_tmp, "visual_files/$file_name");
       if(!is_uploaded_file($file_tmp)) {
           $response = array('success' => true, 'message' => 'OK', 'file' => $file_name);
           echo json_encode($response);
@@ -50,9 +50,9 @@ if(isset($_FILES['new_item']['name'])){
       }
     }
 
-    // $file_tmp  = $_FILES['new_item']['tmp_name'];
-    // $file_name = $_FILES['new_item']['name'];
-    // $file_size = $_FILES['new_item']['size'];
+    // $file_tmp  = $_FILES['visualFiles']['tmp_name'];
+    // $file_name = $_FILES['visualFiles']['name'];
+    // $file_size = $_FILES['visualFiles']['size'];
     //
     // //echo ($file_tmp.", ".$file_name.", ".$file_size);
     // move_uploaded_file($file_tmp, "tmp/$file_name");

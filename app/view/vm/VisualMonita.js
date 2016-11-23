@@ -1,11 +1,3 @@
-// Ext.Loader.setConfig ({
-// 	enabled: true,
-// 	paths: {
-// 		'Ext.ux.WebSocket': 'WebSocket/WebSocket.js' ,
-// 		'Ext.ux.WebSocketManager': 'WebSocket/WebSocketManager.js'
-// 	}
-// });
-
 Ext.define('Sencha_Draw.view.vm.VisualMonita', {
   extend: 'Ext.container.Container',
 
@@ -14,22 +6,15 @@ Ext.define('Sencha_Draw.view.vm.VisualMonita', {
 		'Sencha_Draw.view.vm.test.LockGridView',
     'Sencha_Draw.view.vm.item.hmi-items',
     'Sencha_Draw.view.vm.uploaded_item.hmi-items',
-    // 'Sencha_Draw.view.vm.json_grid.json_grid',
+    'Sencha_Draw.view.vm.PropertyGrid',
     'Ext.ux.WebSocket',
     'Ext.ux.WebSocketManager',
-    'Ext.ux.upload.*'
+    'Ext.ux.form.MultiFile'
   ],
 
   xtype: 'visual-monita',
 	itemId: 'parent',
   controller: 'vm',
-  viewModel: {
-		data: {
-			// htmlVisMon: '<table><tr><th>Company</th><th>Contact</th><th>Country</th></tr><tr><td>Alfreds Futterkiste</td><td>Maria Anders</td><td>Germany</td></tr><tr><td>Centro comercial Moctezuma</td><td>Francisco Chang</td><td>Mexico</td></tr><tr><td>Ernst Handel</td><td>Roland Mendel</td><td>Austria</td></tr><tr><td>Island Trading</td><td>Helen Bennett</td><td>UK</td></tr><tr><td>Laughing Bacchus Winecellars</td><td>Yoshi Tannamuri</td><td>Canada</td></tr><tr><td>Magazzini Alimentari Riuniti</td><td>Giovanni Rovelli</td><td>Italy</td></tr</table>',
-			// value_VisMon: '<font face="courier" color="red">><h1 style="height: 100%; width: 100%; text-align: center; margin: 0; font-size: 5em;">N/A</h1></font>',
-			// val: 'N/A'
-		}
-  },
 
   layout: {
     type: 'border'
@@ -64,7 +49,6 @@ Ext.define('Sencha_Draw.view.vm.VisualMonita', {
         value: 'ws://119.18.154.235:1234',
         flex: 1,
     		fieldLabel: 'WebSocket URL',
-    		// labelAlign: 'top',
     		listeners: {
     			specialKey: 'onSpecialKey'
     		}
@@ -95,7 +79,6 @@ Ext.define('Sencha_Draw.view.vm.VisualMonita', {
     xtype: 'tabpanel',
     items:[{
       title: 'Editor',
-      // html: '<h2>Visual Monita 1</h2>',
 			xtype: 'container',
 			layout: {
 				type: 'border',
@@ -121,32 +104,7 @@ Ext.define('Sencha_Draw.view.vm.VisualMonita', {
             listeners: {
               click: 'onloadVisualMonitaEditor'
             }
-          }, {
-            xtype: 'button',
-            // itemId: 'trash',
-            text: 'Delete Item',
-            listeners: {
-              click: 'onTrashClick'
-            }
-          }, {
-  					xtype: 'textfield',
-  					itemId: 'label_vismon',
-          	fieldLabel: 'Label'
-  				}, {
-  					xtype: 'textfield',
-  					itemId: 'slave_id_vismon',
-          	fieldLabel: 'Slave ID'
-  				}, {
-  					xtype: 'textfield',
-  					itemId: 'titik_ukur_vismon',
-          	fieldLabel: 'Titik Ukur'
-  				}, {
-            xtype: 'button',
-          	text: 'Add Label',
-          	listeners: {
-              click: 'onAddLabelClick'
-          	}
-      		}]
+          }]
         }, {
           xtype: 'toolbar',
           dock: 'bottom',
@@ -189,32 +147,19 @@ Ext.define('Sencha_Draw.view.vm.VisualMonita', {
 					el: {
 						mousemove: function(me, e, eOpts) {
               var parent = Ext.ComponentQuery.query('#canvas')[0];
-              // console.log('canvas.getX() = ' + (me.getX() - parent.getX()));
-              // console.log('canvas.getY() = ' + (me.getY() - parent.getY()));
-              // console.log('mouse X = ' + me.getX() + ' canvas X = ' + parent.getX() + ' realX = ' + (me.getX() - parent.getX()));
-              // console.log('mouse Y = ' + me.getY() + ' canvas Y = ' + parent.getY() + ' realY = ' + (me.getY() - parent.getY()));
               if (parent.getViewModel().get('x_object') != '') {
                 var AllObject = Ext.ComponentQuery.query('#canvas > panel');
-                // console.log('AllObject = '); console.log(AllObject);
                 for (var i = 0; i < Object.keys(AllObject).length; i++) {
                   if (AllObject[i].getId() == parent.getViewModel().get('x_object')) {
-                    AllObject[i].el.setStyle({backgroundImage: 'url(border-image.png)'});
+                    AllObject[i].el.setStyle({backgroundImage: 'url(border-image.png)', backgroundRepeat: 'no-repeat'});
+                    // AllObject[i].el.setStyle({backgroundColor: '#c1ddf1', padding: '10px'});
                   } else {
                     AllObject[i].el.setStyle({backgroundImage: 'url(border-image-null.png)'});
+                    // AllObject[i].el.setStyle({backgroundColor: '#fff'});
                   }
                 }
-                // console.log(parent.getViewModel().get('x_object'));
-                // var object = Ext.ComponentQuery.query('#vm_object')[0];
-                // var object = Ext.ComponentQuery.query('#' + parent.getViewModel().get('x_object'))[0];
                 var object = Ext.getCmp(parent.getViewModel().get('x_object'));
-  							// console.log('Page X = '); console.log(e.getX());
-  							// console.log('Page Y = '); console.log(e.getY());
   							if (object.getViewModel().get('x_drag')) {
-  								// console.log('Move Object X = ' + object.getX() + ' Y = ' + object.getY() + ' to X = ' + e.getX() + ' Y = ' + e.getY());
-  								// var data = object.getViewModel().getData();
-  								// object.el.setX(e.getX);
-  								// object.el.setY(e.getY);
-                  // console.log(object.getHeader());
                   if (object.getHeader()) {
                     object.setPagePosition(me.getX()-(object.getWidth()/2), me.getY()-20);
                   } else {
@@ -225,20 +170,28 @@ Ext.define('Sencha_Draw.view.vm.VisualMonita', {
                   var o_posY = Ext.ComponentQuery.query('#object_posy')[0]; o_posY.setValue(object.getY());
                   var o_height = Ext.ComponentQuery.query('#object_height')[0]; o_height.setValue(object.getHeight());
                   var o_width = Ext.ComponentQuery.query('#object_width')[0]; o_width.setValue(object.getWidth());
-  							} else {
-  								// console.log('NOT Move Object X = ' + object.getX() + ' Y = ' + object.getY() + ' to X = ' + e.getX() + ' Y = ' + e.getY());
-
   							}
               }
 						},
-            contextmenu: function() {
-              console.log('Right Clicked on Canvas');
-            }
+            contextmenu: 'onCanvasRightClick'
 					}
 				},
         scrollable: true
 			}, {
         region: 'east',
+        xtype: 'panel',
+        title: 'Item Properties',
+        split: true,
+				collapsible: true,
+				collapsed: false,
+        floatable: false,
+				width: 300,
+        items: [{
+          xtype: 'vm-property-grid',
+          itemId: 'properties',
+        }]
+      }, {
+        region: 'west',
         xtype: 'panel',
         title: 'HMI Items',
         layout: 'accordion',
@@ -247,54 +200,119 @@ Ext.define('Sencha_Draw.view.vm.VisualMonita', {
 				collapsed: false,
         floatable: false,
 				width: 250,
-				// autoLoad: true,
-				// autoRender: true,
-				// autoShow: true
         items: [{
           xtype: 'hmi-grid',
           title: 'On Local'
         }, {
-          xtype: 'panel',
-          title: 'Upload Item',
-          items: [{
-            xtype: 'form',
-            // title: 'Upload a Photo',
-            bodyPadding: 10,
-            items: [{
-              xtype: 'filefield',
-              name: 'new_item',
-              // buttonOnly: true,
-              hideLabel: true,
-              allowBlank: false,
-              anchor: '100%',
-              buttonText: 'Browse Items...'
-            }],
-            buttons: [{
-              text: 'Upload',
-              handler: function() {
-                var form = this.up('form').getForm();
-                if (form.isValid()) {
-                  form.submit({
-                    url: 'test_upload.php',
-                    waitMsg: 'Uploading your photo...',
-                    success: function(fp, o) {
-                      Ext.Msg.alert('Success', 'Item "' + o.result.file + '" has been uploaded.');
-                      var grid = Ext.ComponentQuery.query('#uploadedGrid')[0];
-                      grid.getStore().reload();
+          xtype: 'hmi-uploaded-grid',
+          itemId: 'uploadedGrid',
+          title: 'Uploaded Items',
+          listeners: {
+            itemcontextmenu: function(me, record, item, index, e, eOpts) {
+              var item =  record.getData()['uploaded-Items'];
+              e.stopEvent();
+              Ext.create('Ext.menu.Menu', {
+                width: 100,
+                plain: true,
+                floating: true,
+                renderTo: Ext.getBody(),
+                items: [{
+                  text: 'Delete Item',
+                  handler: function() {
+                    console.log('delete item clicked');
+                    Ext.Msg.show({
+                      title:'Delete Item',
+                      message: 'Delete last click item ??',
+                      buttons: Ext.Msg.YESNO,
+                      icon: Ext.Msg.QUESTION,
+                      fn: function(btn) {
+                        if (btn === 'yes') {
+                          Ext.Ajax.request({
+                            url: 'delete.php',
+                            params: {
+                              data: item
+                            },
+                            success: function(response) {
+                              var grid = Ext.ComponentQuery.query('#uploadedGrid')[0];
+                              grid.getStore().reload();
+                            }
+                          });
+                        }
+                      }
+                    });
+                  }
+                }]
+              }).showAt(e.getXY());
+            }
+          },
+          tbar: [{
+            text: 'Add HMI Items',
+            handler: function () {
+              var win = Ext.widget({
+                xtype: 'window',
+                title: 'Files upload form',
+                width: 350,
+                autoShow: true,
+                modal: true,
+                items: {
+                  xtype: 'form',
+                  border: false,
+                  bodyStyle: {
+                    padding: '10px'
+                  },
+                  items: {
+                    xtype: 'filefield',
+                    name: 'new_item[]',
+                    hideLabel: true,
+                    allowBlank: false,
+                    anchor: '100%',
+                    buttonText: 'Browse Items...',
+                    listeners: {
+                      render: function(cmp) {
+                        cmp.fileInputEl.set({
+                          multiple: true,
+                          accept: '.png, .gif, .svg'
+                        });
+                      }
                     }
-                  });
-                }
-              }
-            }, {
-              text: 'Refresh',
-              handler: function() {
-                var grid = Ext.ComponentQuery.query('#uploadedGrid')[0];
-                grid.getStore().reload();
-              }
-            }]
+                  }
+                },
+                buttons: [{
+                  text: 'Upload',
+                  handler: function() {
+                    var form = win.down('form').getForm();
+                    if (form.isValid()) {
+                      form.submit({
+                        url: 'test_upload.php',
+                        waitMsg: 'Uploading item(s)...',
+                        success: function(fp, o) {
+                          Ext.Msg.alert('Success', 'Item "' + o.result.file + '" has been uploaded.');
+                          win.close();
+                          var grid = Ext.ComponentQuery.query('#uploadedGrid')[0];
+                          grid.getStore().reload();
+                        },
+                        failure: function(fp, o) {
+                          Ext.Msg.alert('Failure', o.result.file || ' - server error', function () {
+                            win.close();
+                          });
+                        }
+                      });
+                    }
+                  }
+                },{
+                  text: 'Cancel',
+                  handler: function () {
+                    win.close();
+                  }
+                }]
+              });
+            }
           }, {
-            xtype: 'hmi-uploaded-grid',
-            itemId: 'uploadedGrid'
+            text: 'Refresh',
+            handler: function() {
+              var grid = Ext.ComponentQuery.query('#uploadedGrid')[0];
+              grid.getStore().reload();
+            }
           }]
         }]
       }, {
@@ -317,7 +335,6 @@ Ext.define('Sencha_Draw.view.vm.VisualMonita', {
       id: 'visual_monita',
       itemId: 'visual_monita',
       scrollable: true,
-			// html: '<h2>Visual Monita 2</h2>'
       dockedItems: [{
         xtype: 'toolbar',
         dock: 'top',
