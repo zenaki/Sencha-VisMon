@@ -27,9 +27,9 @@
     /**
      * The name of the theme for this application.
      */
-    
+
     "theme": "ext-theme-neptune",
-    
+
     /**
      * The list of required packages (with optional versions; default is "latest").
      *
@@ -40,6 +40,7 @@
      *      ]
      */
     "requires": [
+      "sencha-charts"
     ],
 
     /**
@@ -164,15 +165,15 @@
 
 
     /**
-     * override objects for setting build environment specific 
+     * override objects for setting build environment specific
      * settings.
      */
     "production": {
     },
-    
+
     "testing": {
     },
-    
+
     "development": {
     },
 

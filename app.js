@@ -7,9 +7,9 @@ Ext.application({
     name: 'VisualMoita',
 
     extend: 'VisualMoita.Application',
-    
-    autoCreateViewport: 'VisualMoita.view.main.Main'
-	
+
+    autoCreateViewport: 'VisualMoita.view.vm.Main'
+
     //-------------------------------------------------------------------------
     // Most customizations should be made to VisualMoita.Application. If you need to
     // customize this file, doing so below this section reduces the likelihood

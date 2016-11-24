@@ -5,13 +5,18 @@
  */
 Ext.define('VisualMoita.Application', {
     extend: 'Ext.app.Application',
-    
+
     name: 'VisualMoita',
 
     stores: [
         // TODO: add global / shared stores here
+        'VisualMoita.store.vm.editor.table.DataTableStore'
     ],
-    
+
+    models: [
+        'VisualMoita.model.vm.editor.table.DataTableModel'
+    ],
+
     launch: function () {
         // TODO - Launch the application
     }
