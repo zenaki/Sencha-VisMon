@@ -85,7 +85,7 @@ Ext.define('Sencha_Draw.view.vm.VisualMonita', {
 				align: 'stretch'
 			},
 			items: [{
-				xtype: 'panel',
+				xtype: 'draw',
 				itemId: 'canvas',
 				region: 'center',
         id: 'CanvasID',
@@ -105,38 +105,6 @@ Ext.define('Sencha_Draw.view.vm.VisualMonita', {
               click: 'onloadVisualMonitaEditor'
             }
           }]
-        }, {
-          xtype: 'toolbar',
-          dock: 'bottom',
-          items: [{
-  					xtype: 'textfield',
-  					itemId: 'object_posx',
-          	fieldLabel: 'X',
-            listeners: {
-              specialKey: 'onToolbarObjectValueChange'
-            }
-  				}, {
-  					xtype: 'textfield',
-  					itemId: 'object_posy',
-          	fieldLabel: 'Y',
-            listeners: {
-              specialKey: 'onToolbarObjectValueChange'
-            }
-  				}, {
-  					xtype: 'textfield',
-  					itemId: 'object_height',
-          	fieldLabel: 'Height',
-            listeners: {
-              specialKey: 'onToolbarObjectValueChange'
-            }
-  				}, {
-            xtype: 'textfield',
-  					itemId: 'object_width',
-          	fieldLabel: 'Width',
-            listeners: {
-              specialKey: 'onToolbarObjectValueChange'
-            }
-      		}]
         }],
         viewModel: {
           data: {
@@ -145,34 +113,7 @@ Ext.define('Sencha_Draw.view.vm.VisualMonita', {
         },
 				listeners: {
 					el: {
-						mousemove: function(me, e, eOpts) {
-              var parent = Ext.ComponentQuery.query('#canvas')[0];
-              if (parent.getViewModel().get('x_object') != '') {
-                var AllObject = Ext.ComponentQuery.query('#canvas > panel');
-                for (var i = 0; i < Object.keys(AllObject).length; i++) {
-                  if (AllObject[i].getId() == parent.getViewModel().get('x_object')) {
-                    AllObject[i].el.setStyle({backgroundImage: 'url(border-image.png)', backgroundRepeat: 'no-repeat'});
-                    // AllObject[i].el.setStyle({backgroundColor: '#c1ddf1', padding: '10px'});
-                  } else {
-                    AllObject[i].el.setStyle({backgroundImage: 'url(border-image-null.png)'});
-                    // AllObject[i].el.setStyle({backgroundColor: '#fff'});
-                  }
-                }
-                var object = Ext.getCmp(parent.getViewModel().get('x_object'));
-  							if (object.getViewModel().get('x_drag')) {
-                  if (object.getHeader()) {
-                    object.setPagePosition(me.getX()-(object.getWidth()/2), me.getY()-20);
-                  } else {
-                    object.setPagePosition(me.getX()-(object.getWidth()/2), me.getY()-(object.getHeight()/2));
-                  }
-
-                  var o_posX = Ext.ComponentQuery.query('#object_posx')[0]; o_posX.setValue(object.getX());
-                  var o_posY = Ext.ComponentQuery.query('#object_posy')[0]; o_posY.setValue(object.getY());
-                  var o_height = Ext.ComponentQuery.query('#object_height')[0]; o_height.setValue(object.getHeight());
-                  var o_width = Ext.ComponentQuery.query('#object_width')[0]; o_width.setValue(object.getWidth());
-  							}
-              }
-						},
+						mousemove: 'onCanvasMouseMove',
             contextmenu: 'onCanvasRightClick'
 					}
 				},
