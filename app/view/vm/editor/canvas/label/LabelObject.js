@@ -1,7 +1,7 @@
-Ext.define('VisualMoita.view.vm.editor.canvas.label.LabelObject', {
+Ext.define('VisualMonita.view.vm.editor.canvas.label.LabelObject', {
   extend: 'Ext.panel.Panel',
   requires: [
-    'VisualMoita.view.vm.editor.canvas.label.LabelObjectController'
+    'VisualMonita.view.vm.editor.canvas.label.LabelObjectController'
   ],
   xtype: 'vm-label-object',
   controller: 'lbl-obj-controller',

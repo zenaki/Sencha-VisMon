@@ -1,4 +1,4 @@
-Ext.define('VisualMoita.view.vm.editor.canvas.label.LabelFormController', {
+Ext.define('VisualMonita.view.vm.editor.canvas.label.LabelFormController', {
   extend: 'Ext.app.ViewController',
   alias: 'controller.lbl-controller',
 

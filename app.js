@@ -4,11 +4,11 @@
  * Sencha Cmd when upgrading.
  */
 Ext.application({
-    name: 'VisualMoita',
+    name: 'VisualMonita',
 
-    extend: 'VisualMoita.Application',
+    extend: 'VisualMonita.Application',
 
-    autoCreateViewport: 'VisualMoita.view.vm.Main'
+    autoCreateViewport: 'VisualMonita.view.vm.Main'
 
     //-------------------------------------------------------------------------
     // Most customizations should be made to VisualMoita.Application. If you need to

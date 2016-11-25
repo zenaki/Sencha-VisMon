@@ -1,9 +1,10 @@
-Ext.define('VisualMoita.view.vm.editor.canvas.Canvas', {
+Ext.define('VisualMonita.view.vm.editor.canvas.Canvas', {
   extend: 'Ext.draw.Container',
   requires: [
-    'VisualMoita.view.vm.editor.canvas.CanvasController',
-    'VisualMoita.view.vm.editor.canvas.label.LabelForm',
-    'VisualMoita.view.vm.editor.canvas.label.LabelObject'
+    'VisualMonita.view.vm.editor.canvas.CanvasController',
+    'VisualMonita.view.vm.editor.canvas.label.LabelForm',
+    'VisualMonita.view.vm.editor.canvas.label.LabelObject',
+    'VisualMonita.view.vm.editor.canvas.hmi_object.vm-HMI-Object'
   ],
   xtype: 'vm-canvas',
   controller: 'cvs-controller',
@@ -22,7 +23,8 @@ Ext.define('VisualMoita.view.vm.editor.canvas.Canvas', {
     contextmenu: {
       element: 'el',
       fn: 'onCanvasRightClick'
-    }
+    },
+    boxready: 'onBoxReady'
   },
   scrollable: true,
   dockedItems: [{

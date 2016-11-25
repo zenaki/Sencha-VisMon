@@ -1,9 +1,9 @@
-Ext.define('VisualMoita.view.vm.editor.webSocket.ws-Form', {
+Ext.define('VisualMonita.view.vm.editor.webSocket.ws-Form', {
   extend: 'Ext.form.Panel',
   requires: [
     'Ext.ux.WebSocket',
     'Ext.ux.WebSocketManager',
-    'VisualMoita.view.vm.editor.webSocket.ws-Controller'
+    'VisualMonita.view.vm.editor.webSocket.ws-Controller'
   ],
   xtype: 'webSocket-form',
   itemId: 'p_webSocket',

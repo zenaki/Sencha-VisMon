@@ -1,7 +1,7 @@
-Ext.define('VisualMoita.view.vm.editor.webSocket.ws-Controller', {
+Ext.define('VisualMonita.view.vm.editor.webSocket.ws-Controller', {
   extend: 'Ext.app.ViewController',
   alias: 'controller.ws-controller',
-  
+
   isJSON: function(str) {
     try {
       JSON.parse(str);

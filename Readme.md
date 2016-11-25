@@ -1,4 +1,4 @@
-# VisualMoita
+# VisualMonita
 
 This folder is primarily a container for the top-level pieces of the application.
 While you can remove some files and folders that this application does not use,
@@ -32,21 +32,21 @@ process.
 
 # Other Folders
 
-## VisualMoita/app
+## VisualMonita/app
 
 This folder contains the JavaScript files for the application.
 
-## VisualMoita/resources
+## VisualMonita/resources
 
 This folder contains static resources (typically an `"images"` folder as well).
 
-## VisualMoita/overrides
+## VisualMonita/overrides
 
-This folder contains override classes. All overrides in this folder will be 
+This folder contains override classes. All overrides in this folder will be
 automatically included in application builds if the target class of the override
 is loaded.
 
-## VisualMoita/sass
+## VisualMonita/sass
 
-This folder contains the styling for the application's views. See VisualMoita/sass/Readme.md
+This folder contains the styling for the application's views. See VisualMonita/sass/Readme.md
 for details.

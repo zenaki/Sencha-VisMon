@@ -1,4 +1,4 @@
-Ext.define('VisualMoita.view.vm.editor.table.DataTable', {
+Ext.define('VisualMonita.view.vm.editor.table.DataTable', {
   extend: 'Ext.grid.Panel',
   requires: [
     'Ext.grid.RowNumberer'
@@ -6,7 +6,7 @@ Ext.define('VisualMoita.view.vm.editor.table.DataTable', {
   xtype: 'vm-data-table',
   itemId: 'tableVisMon',
   title: 'Data Table',
-  store: 'VisualMoita.store.vm.editor.table.DataTableStore',
+  store: 'VisualMonita.store.vm.editor.table.DataTableStore',
   columnLines: true,
   height: 300,
   split: true,

@@ -2,7 +2,7 @@
     /**
      * The application's namespace.
      */
-    "name": "VisualMoita",
+    "name": "VisualMonita",
 
     /**
      * The relative path to the appliaction's markup file (html, jsp, asp, etc.)
@@ -49,13 +49,13 @@
     "sass": {
         /**
          * The root namespace to use when mapping *.scss files to classes in the
-         * sass/src and sass/var directories. For example, "VisualMoita.view.Foo" would
-         * map to "sass/src/view/Foo.scss". If we changed this to "VisualMoita.view" then
+         * sass/src and sass/var directories. For example, "VisualMonita.view.Foo" would
+         * map to "sass/src/view/Foo.scss". If we changed this to "VisualMonita.view" then
          * it would map to "sass/src/Foo.scss". To style classes outside the app's
          * root namespace, change this to "". Doing so would change the mapping of
-         * "VisualMoita.view.Foo" to "sass/src/VisualMoita/view/Foo.scss".
+         * "VisualMonita.view.Foo" to "sass/src/VisualMonita/view/Foo.scss".
          */
-        "namespace": "VisualMoita"
+        "namespace": "VisualMonita"
     },
 
     /**

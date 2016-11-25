@@ -1,4 +1,4 @@
-Ext.define('VisualMoita.view.vm.editor.canvas.label.LabelObjectController', {
+Ext.define('VisualMonita.view.vm.editor.canvas.label.LabelObjectController', {
   extend: 'Ext.app.ViewController',
   alias: 'controller.lbl-obj-controller',
 
@@ -7,13 +7,13 @@ Ext.define('VisualMoita.view.vm.editor.canvas.label.LabelObjectController', {
     me.getViewModel().set('x_height', height);
     me.getViewModel().set('x_width', width);
 
-    // var prop = Ext.ComponentQuery.query('#properties')[0];
-    // prop.getViewModel().set('x_ItemId', me.getItemId());
-    // prop.getViewModel().set('x_Height', me.getHeight());
-    // prop.getViewModel().set('x_Width', me.getWidth());
-    // prop.getViewModel().set('x_POS_X', me.getX() - parent.getX());
-    // prop.getViewModel().set('X_POS_Y', me.getY() - parent.getY());
-    // prop.setDisabled(false);
+    var prop = Ext.ComponentQuery.query('#properties')[0];
+    prop.getViewModel().set('x_ItemId', me.getItemId());
+    prop.getViewModel().set('x_Height', me.getHeight());
+    prop.getViewModel().set('x_Width', me.getWidth());
+    prop.getViewModel().set('x_POS_X', me.getX() - parent.getX());
+    prop.getViewModel().set('X_POS_Y', me.getY() - parent.getY());
+    prop.setDisabled(false);
   },
 
   onPanelLabelRender: function(panel) {
@@ -25,13 +25,13 @@ Ext.define('VisualMoita.view.vm.editor.canvas.label.LabelObjectController', {
         object.getViewModel().set('x_drag', true);
       }
 
-      // var prop = Ext.ComponentQuery.query('#properties')[0];
-      // prop.getViewModel().set('x_ItemId', object.getItemId());
-      // prop.getViewModel().set('x_Height', object.getHeight());
-      // prop.getViewModel().set('x_Width', object.getWidth());
-      // prop.getViewModel().set('x_POS_X', object.getX() - parent.getX());
-      // prop.getViewModel().set('X_POS_Y', object.getY() - parent.getY());
-      // prop.setDisabled(false);
+      var prop = Ext.ComponentQuery.query('#properties')[0];
+      prop.getViewModel().set('x_ItemId', object.getItemId());
+      prop.getViewModel().set('x_Height', object.getHeight());
+      prop.getViewModel().set('x_Width', object.getWidth());
+      prop.getViewModel().set('x_POS_X', object.getX() - parent.getX());
+      prop.getViewModel().set('X_POS_Y', object.getY() - parent.getY());
+      prop.setDisabled(false);
     });
 
     panel.body.on('click', function() {
@@ -42,13 +42,13 @@ Ext.define('VisualMoita.view.vm.editor.canvas.label.LabelObjectController', {
         object.getViewModel().set('x_drag', false);
       }
 
-      // var prop = Ext.ComponentQuery.query('#properties')[0];
-      // prop.getViewModel().set('x_ItemId', object.getItemId());
-      // prop.getViewModel().set('x_Height', object.getHeight());
-      // prop.getViewModel().set('x_Width', object.getWidth());
-      // prop.getViewModel().set('x_POS_X', object.getX() - parent.getX());
-      // prop.getViewModel().set('X_POS_Y', object.getY() - parent.getY());
-      // prop.setDisabled(false);
+      var prop = Ext.ComponentQuery.query('#properties')[0];
+      prop.getViewModel().set('x_ItemId', object.getItemId());
+      prop.getViewModel().set('x_Height', object.getHeight());
+      prop.getViewModel().set('x_Width', object.getWidth());
+      prop.getViewModel().set('x_POS_X', object.getX() - parent.getX());
+      prop.getViewModel().set('X_POS_Y', object.getY() - parent.getY());
+      prop.setDisabled(false);
     });
 
     panel.header.on('dblclick', function() {
@@ -59,13 +59,13 @@ Ext.define('VisualMoita.view.vm.editor.canvas.label.LabelObjectController', {
         object.getViewModel().set('x_drag', true);
       }
 
-      // var prop = Ext.ComponentQuery.query('#properties')[0];
-      // prop.getViewModel().set('x_ItemId', object.getItemId());
-      // prop.getViewModel().set('x_Height', object.getHeight());
-      // prop.getViewModel().set('x_Width', object.getWidth());
-      // prop.getViewModel().set('x_POS_X', object.getX() - parent.getX());
-      // prop.getViewModel().set('X_POS_Y', object.getY() - parent.getY());
-      // prop.setDisabled(false);
+      var prop = Ext.ComponentQuery.query('#properties')[0];
+      prop.getViewModel().set('x_ItemId', object.getItemId());
+      prop.getViewModel().set('x_Height', object.getHeight());
+      prop.getViewModel().set('x_Width', object.getWidth());
+      prop.getViewModel().set('x_POS_X', object.getX() - parent.getX());
+      prop.getViewModel().set('X_POS_Y', object.getY() - parent.getY());
+      prop.setDisabled(false);
     });
 
     panel.header.on('click', function() {
@@ -76,13 +76,13 @@ Ext.define('VisualMoita.view.vm.editor.canvas.label.LabelObjectController', {
         object.getViewModel().set('x_drag', false);
       }
 
-      // var prop = Ext.ComponentQuery.query('#properties')[0];
-      // prop.getViewModel().set('x_ItemId', object.getItemId());
-      // prop.getViewModel().set('x_Height', object.getHeight());
-      // prop.getViewModel().set('x_Width', object.getWidth());
-      // prop.getViewModel().set('x_POS_X', object.getX() - parent.getX());
-      // prop.getViewModel().set('X_POS_Y', object.getY() - parent.getY());
-      // prop.setDisabled(false);
+      var prop = Ext.ComponentQuery.query('#properties')[0];
+      prop.getViewModel().set('x_ItemId', object.getItemId());
+      prop.getViewModel().set('x_Height', object.getHeight());
+      prop.getViewModel().set('x_Width', object.getWidth());
+      prop.getViewModel().set('x_POS_X', object.getX() - parent.getX());
+      prop.getViewModel().set('X_POS_Y', object.getY() - parent.getY());
+      prop.setDisabled(false);
     });
   },
 
@@ -93,13 +93,13 @@ Ext.define('VisualMoita.view.vm.editor.canvas.label.LabelObjectController', {
       if (object.getViewModel().get('x_drag')) {
         object.setPagePosition(me.getX()-(object.getWidth()/2), me.getY()-20); // Center of Header
 
-        // var prop = Ext.ComponentQuery.query('#properties')[0];
-        // prop.getViewModel().set('x_ItemId', object.getItemId());
-        // prop.getViewModel().set('x_Height', object.getHeight());
-        // prop.getViewModel().set('x_Width', object.getWidth());
-        // prop.getViewModel().set('x_POS_X', object.getX() - parent.getX());
-        // prop.getViewModel().set('X_POS_Y', object.getY() - parent.getY());
-        // prop.setDisabled(false);
+        var prop = Ext.ComponentQuery.query('#properties')[0];
+        prop.getViewModel().set('x_ItemId', object.getItemId());
+        prop.getViewModel().set('x_Height', object.getHeight());
+        prop.getViewModel().set('x_Width', object.getWidth());
+        prop.getViewModel().set('x_POS_X', object.getX() - parent.getX());
+        prop.getViewModel().set('X_POS_Y', object.getY() - parent.getY());
+        prop.setDisabled(false);
       }
     }
   },
@@ -128,13 +128,13 @@ Ext.define('VisualMoita.view.vm.editor.canvas.label.LabelObjectController', {
                 canvas.getViewModel().set('x_object', '');
                 canvas.remove(object);
 
-                // var prop = Ext.ComponentQuery.query('#properties')[0];
-                // prop.getViewModel().set('x_ItemId', '');
-                // prop.getViewModel().set('x_Height', '');
-                // prop.getViewModel().set('x_Width', '');
-                // prop.getViewModel().set('x_POS_X', '');
-                // prop.getViewModel().set('X_POS_Y', '');
-                // prop.setDisabled(true);
+                var prop = Ext.ComponentQuery.query('#properties')[0];
+                prop.getViewModel().set('x_ItemId', '');
+                prop.getViewModel().set('x_Height', '');
+                prop.getViewModel().set('x_Width', '');
+                prop.getViewModel().set('x_POS_X', '');
+                prop.getViewModel().set('X_POS_Y', '');
+                prop.setDisabled(true);
               }
             }
           });

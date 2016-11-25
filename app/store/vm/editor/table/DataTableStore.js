@@ -1,9 +1,9 @@
-Ext.define('VisualMoita.store.vm.editor.table.DataTableStore', {
+Ext.define('VisualMonita.store.vm.editor.table.DataTableStore', {
   extend: 'Ext.data.ArrayStore',
   sorters: [{
     property: 'slave_id',
     direction: 'asc'
   }],
-  model: 'VisualMoita.model.vm.editor.table.DataTableModel',
+  model: 'VisualMonita.model.vm.editor.table.DataTableModel',
   data: []
 });

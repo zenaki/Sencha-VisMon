@@ -1,10 +1,10 @@
-Ext.define('VisualMoita.view.vm.Main', {
+Ext.define('VisualMonita.view.vm.Main', {
   extend: 'Ext.container.Container',
 
   requires: [
-    'VisualMoita.view.vm.MainController',
-    'VisualMoita.view.vm.MainModel',
-    'VisualMoita.view.vm.editor.Editor'
+    'VisualMonita.view.vm.MainController',
+    'VisualMonita.view.vm.MainModel',
+    'VisualMonita.view.vm.editor.Editor'
   ],
 
   xtype: 'vm-main',

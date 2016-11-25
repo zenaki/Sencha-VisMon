@@ -3,18 +3,20 @@
  * Ext.application(). This is the ideal place to handle application launch and initialization
  * details.
  */
-Ext.define('VisualMoita.Application', {
+Ext.define('VisualMonita.Application', {
     extend: 'Ext.app.Application',
 
-    name: 'VisualMoita',
+    name: 'VisualMonita',
 
     stores: [
         // TODO: add global / shared stores here
-        'VisualMoita.store.vm.editor.table.DataTableStore'
+        'VisualMonita.store.vm.editor.table.DataTableStore',
+        'VisualMonita.store.vm.editor.sideBar.local_items.vm-LocalItems-Store'
     ],
 
     models: [
-        'VisualMoita.model.vm.editor.table.DataTableModel'
+        'VisualMonita.model.vm.editor.table.DataTableModel',
+        'VisualMonita.model.vm.editor.sideBar.local_items.vm-LocalItems-Model'
     ],
 
     launch: function () {

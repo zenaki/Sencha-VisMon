@@ -1,7 +1,7 @@
-Ext.define('VisualMoita.view.vm.editor.canvas.label.LabelForm', {
+Ext.define('VisualMonita.view.vm.editor.canvas.label.LabelForm', {
   extend: 'Ext.window.Window',
   requires: [
-    'VisualMoita.view.vm.editor.canvas.label.LabelFormController'
+    'VisualMonita.view.vm.editor.canvas.label.LabelFormController'
   ],
   xtype: 'label-form',
   controller: 'lbl-controller',

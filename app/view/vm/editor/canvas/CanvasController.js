@@ -1,6 +1,42 @@
-Ext.define('VisualMoita.view.vm.editor.canvas.CanvasController', {
+Ext.define('VisualMonita.view.vm.editor.canvas.CanvasController', {
   extend: 'Ext.app.ViewController',
   alias: 'controller.cvs-controller',
+
+  onBoxReady: function() {
+    var canvas = Ext.ComponentQuery.query('#canvas')[0];
+    this.CanvasDropTarget = new Ext.dd.DropTarget(canvas.body, {
+      ddGroup: 'hmi-grid-to-panel',
+      notifyEnter: function(ddSource, e, data) {
+        canvas.body.stopAnimation();
+        canvas.body.highlight();
+      },
+      notifyDrop: function(ddSource, e, data) {
+        var canvas = Ext.ComponentQuery.query('#canvas')[0];
+        var selectedRecord = ddSource.dragData.records[0];
+        var posX = e.getX() - canvas.getX();
+        var posY = e.getY() - canvas.getY(); // - 35;
+        canvas.add({
+  				xtype: 'vm-hmi-object',
+  				viewModel: {
+  					data: {
+  						x_height: 10,
+  						x_width: 10,
+  						x_drag: false,
+              x_path: selectedRecord.data.hasOwnProperty('onlocal') ? selectedRecord.data['onlocal'] : selectedRecord.data['uploaded-Items'],
+              x_type: 'item_object'
+  					}
+  				},
+  				bind: {
+  					html: '<img src="resources/vm/Local_Items/{x_path}" height={x_height} width={x_width}/>'
+  				},
+          x: posX,
+          y: posY
+  			});
+        var AllObject = Ext.ComponentQuery.query('#canvas > panel');
+        canvas.getViewModel().set('x_object', AllObject[Object.keys(AllObject).length-1].getId());
+      }
+    });
+  },
 
   onCanvasMouseMove: function(me, e, eOpts) {
     var parent = Ext.ComponentQuery.query('#canvas')[0];
@@ -23,13 +59,13 @@ Ext.define('VisualMoita.view.vm.editor.canvas.CanvasController', {
           object.setPagePosition(me.getX()-(object.getWidth()/2), me.getY()-(object.getHeight()/2));
         }
 
-        // var prop = Ext.ComponentQuery.query('#properties')[0];
-        // prop.getViewModel().set('x_ItemId', object.getItemId());
-        // prop.getViewModel().set('x_Height', object.getHeight());
-        // prop.getViewModel().set('x_Width', object.getWidth());
-        // prop.getViewModel().set('x_POS_X', object.getX() - parent.getX());
-        // prop.getViewModel().set('X_POS_Y', object.getY() - parent.getY());
-        // prop.setDisabled(false);
+        var prop = Ext.ComponentQuery.query('#properties')[0];
+        prop.getViewModel().set('x_ItemId', object.getItemId());
+        prop.getViewModel().set('x_Height', object.getHeight());
+        prop.getViewModel().set('x_Width', object.getWidth());
+        prop.getViewModel().set('x_POS_X', object.getX() - parent.getX());
+        prop.getViewModel().set('X_POS_Y', object.getY() - parent.getY());
+        prop.setDisabled(false);
       }
     }
   },
