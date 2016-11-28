@@ -7,13 +7,7 @@ Ext.define('VisualMonita.view.vm.editor.canvas.hmi_object.vm-HMI-ObjectControlle
     me.getViewModel().set('x_height', height);
     me.getViewModel().set('x_width', width);
 
-    var prop = Ext.ComponentQuery.query('#properties')[0];
-    prop.getViewModel().set('x_ItemId', me.getItemId());
-    prop.getViewModel().set('x_Height', me.getHeight());
-    prop.getViewModel().set('x_Width', me.getWidth());
-    prop.getViewModel().set('x_POS_X', me.getX() - parent.getX());
-    prop.getViewModel().set('X_POS_Y', me.getY() - parent.getY());
-    prop.setDisabled(false);
+    this.onSetPropertiesSource(me, parent);
   },
 
   onPanelObjectRender: function(panel) {
@@ -25,13 +19,7 @@ Ext.define('VisualMonita.view.vm.editor.canvas.hmi_object.vm-HMI-ObjectControlle
         object.getViewModel().set('x_drag', true);
       }
 
-      var prop = Ext.ComponentQuery.query('#properties')[0];
-      prop.getViewModel().set('x_ItemId', object.getItemId());
-      prop.getViewModel().set('x_Height', object.getHeight());
-      prop.getViewModel().set('x_Width', object.getWidth());
-      prop.getViewModel().set('x_POS_X', object.getX() - parent.getX());
-      prop.getViewModel().set('X_POS_Y', object.getY() - parent.getY());
-      prop.setDisabled(false);
+      object.getController().onSetPropertiesSource(object, parent);
     });
 
     panel.body.on('click', function() {
@@ -42,13 +30,7 @@ Ext.define('VisualMonita.view.vm.editor.canvas.hmi_object.vm-HMI-ObjectControlle
         object.getViewModel().set('x_drag', false);
       }
 
-      var prop = Ext.ComponentQuery.query('#properties')[0];
-      prop.getViewModel().set('x_ItemId', object.getItemId());
-      prop.getViewModel().set('x_Height', object.getHeight());
-      prop.getViewModel().set('x_Width', object.getWidth());
-      prop.getViewModel().set('x_POS_X', object.getX() - parent.getX());
-      prop.getViewModel().set('X_POS_Y', object.getY() - parent.getY());
-      prop.setDisabled(false);
+      object.getController().onSetPropertiesSource(object, parent);
     });
   },
 
@@ -59,13 +41,7 @@ Ext.define('VisualMonita.view.vm.editor.canvas.hmi_object.vm-HMI-ObjectControlle
       if (object.getViewModel().get('x_drag')) {
         object.setPagePosition(me.getX()-(object.getWidth()/2), me.getY()-(object.getHeight()/2)); // Center of Panel Body
 
-        var prop = Ext.ComponentQuery.query('#properties')[0];
-        prop.getViewModel().set('x_ItemId', object.getItemId());
-        prop.getViewModel().set('x_Height', object.getHeight());
-        prop.getViewModel().set('x_Width', object.getWidth());
-        prop.getViewModel().set('x_POS_X', object.getX() - parent.getX());
-        prop.getViewModel().set('X_POS_Y', object.getY() - parent.getY());
-        prop.setDisabled(false);
+        this.onSetPropertiesSource(object, parent);
       }
     }
   },
@@ -94,11 +70,20 @@ Ext.define('VisualMonita.view.vm.editor.canvas.hmi_object.vm-HMI-ObjectControlle
                 canvas.remove(object);
 
                 var prop = Ext.ComponentQuery.query('#properties')[0];
+                prop.setBind({
+                  source: {
+                    label_01: '{x_ItemId}',
+                    label_02: '{x_Height}',
+                    label_03: '{x_Width}',
+                    label_04: '{x_POS_X}',
+                    label_05: '{x_POS_Y}'
+                  }
+                });
                 prop.getViewModel().set('x_ItemId', '');
                 prop.getViewModel().set('x_Height', '');
                 prop.getViewModel().set('x_Width', '');
                 prop.getViewModel().set('x_POS_X', '');
-                prop.getViewModel().set('X_POS_Y', '');
+                prop.getViewModel().set('x_POS_Y', '');
                 prop.setDisabled(true);
               }
             }
@@ -106,5 +91,24 @@ Ext.define('VisualMonita.view.vm.editor.canvas.hmi_object.vm-HMI-ObjectControlle
         }
       }]
     }).showAt(view.getXY());
+  },
+
+  onSetPropertiesSource: function(me, parent) {
+    var prop = Ext.ComponentQuery.query('#properties')[0];
+    prop.setBind({
+      source: {
+        label_01: '{x_ItemId}',
+        label_02: '{x_Height}',
+        label_03: '{x_Width}',
+        label_04: '{x_POS_X}',
+        label_05: '{x_POS_Y}'
+      }
+    });
+    prop.getViewModel().set('x_ItemId', me.getItemId());
+    prop.getViewModel().set('x_Height', me.getHeight());
+    prop.getViewModel().set('x_Width', me.getWidth());
+    prop.getViewModel().set('x_POS_X', me.getX() - parent.getX());
+    prop.getViewModel().set('x_POS_Y', me.getY() - parent.getY());
+    prop.setDisabled(false);
   }
 });

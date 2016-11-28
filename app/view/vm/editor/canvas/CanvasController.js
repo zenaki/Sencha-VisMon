@@ -60,13 +60,7 @@ Ext.define('VisualMonita.view.vm.editor.canvas.CanvasController', {
           object.setPagePosition(me.getX()-(object.getWidth()/2), me.getY()-(object.getHeight()/2));
         }
 
-        var prop = Ext.ComponentQuery.query('#properties')[0];
-        prop.getViewModel().set('x_ItemId', object.getItemId());
-        prop.getViewModel().set('x_Height', object.getHeight());
-        prop.getViewModel().set('x_Width', object.getWidth());
-        prop.getViewModel().set('x_POS_X', object.getX() - parent.getX());
-        prop.getViewModel().set('X_POS_Y', object.getY() - parent.getY());
-        prop.setDisabled(false);
+        this.onSetPropertiesSource(object, parent);
       }
     }
   },
@@ -246,5 +240,51 @@ Ext.define('VisualMonita.view.vm.editor.canvas.CanvasController', {
     var view = this.getView();
     this.UploadWindow = view.add({xtype: 'vm-canvas-multipleUpload'});
     this.UploadWindow.show();
+  },
+
+  onSetPropertiesSource: function(me, parent) {
+    var prop = Ext.ComponentQuery.query('#properties')[0];
+    if (me.getViewModel().get('x_type') == 'item_object') {
+      prop.setBind({
+        source: {
+          label_01: '{x_ItemId}',
+          label_02: '{x_Height}',
+          label_03: '{x_Width}',
+          label_04: '{x_POS_X}',
+          label_05: '{x_POS_Y}'
+        }
+      });
+      prop.getViewModel().set('x_ItemId', me.getItemId());
+      prop.getViewModel().set('x_Height', me.getHeight());
+      prop.getViewModel().set('x_Width', me.getWidth());
+      prop.getViewModel().set('x_POS_X', me.getX() - parent.getX());
+      prop.getViewModel().set('x_POS_Y', me.getY() - parent.getY());
+    } else if (me.getViewModel().get('x_type') == 'item_label') {
+      prop.setBind({
+        source: {
+          label_01: '{x_ItemId}',
+          label_02: '{x_Height}',
+          label_03: '{x_Width}',
+          label_04: '{x_POS_X}',
+          label_05: '{x_POS_Y}',
+          label_06: '{x_Title}',
+          label_07: '{x_Slave_ID}',
+          label_08: '{x_Titik_Ukur}',
+          label_09: '{x_Font}',
+          label_10: '{x_Font_Size}',
+          label_11: '{x_Color}',
+          label_12: '{x_Align}',
+          label_13: '{x_Margin}'
+        }
+      });
+      prop.getViewModel().set('x_ItemId', me.getItemId());
+      prop.getViewModel().set('x_Height', me.getHeight());
+      prop.getViewModel().set('x_Width', me.getWidth());
+      prop.getViewModel().set('x_POS_X', me.getX() - parent.getX());
+      prop.getViewModel().set('x_POS_Y', me.getY() - parent.getY());
+      prop.getViewModel().set('x_Slave_ID', me.getViewModel().get('x_slave_id'));
+      prop.getViewModel().set('x_Titik_Ukur', me.getViewModel().get('x_titik_ukur'));
+    }
+    prop.setDisabled(false);
   }
 });

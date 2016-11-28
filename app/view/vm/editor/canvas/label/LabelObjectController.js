@@ -7,13 +7,7 @@ Ext.define('VisualMonita.view.vm.editor.canvas.label.LabelObjectController', {
     me.getViewModel().set('x_height', height);
     me.getViewModel().set('x_width', width);
 
-    var prop = Ext.ComponentQuery.query('#properties')[0];
-    prop.getViewModel().set('x_ItemId', me.getItemId());
-    prop.getViewModel().set('x_Height', me.getHeight());
-    prop.getViewModel().set('x_Width', me.getWidth());
-    prop.getViewModel().set('x_POS_X', me.getX() - parent.getX());
-    prop.getViewModel().set('X_POS_Y', me.getY() - parent.getY());
-    prop.setDisabled(false);
+    this.onSetPropertiesSource(me, parent);
   },
 
   onPanelLabelRender: function(panel) {
@@ -25,13 +19,7 @@ Ext.define('VisualMonita.view.vm.editor.canvas.label.LabelObjectController', {
         object.getViewModel().set('x_drag', true);
       }
 
-      var prop = Ext.ComponentQuery.query('#properties')[0];
-      prop.getViewModel().set('x_ItemId', object.getItemId());
-      prop.getViewModel().set('x_Height', object.getHeight());
-      prop.getViewModel().set('x_Width', object.getWidth());
-      prop.getViewModel().set('x_POS_X', object.getX() - parent.getX());
-      prop.getViewModel().set('X_POS_Y', object.getY() - parent.getY());
-      prop.setDisabled(false);
+      object.getController().onSetPropertiesSource(object, parent);
     });
 
     panel.body.on('click', function() {
@@ -42,13 +30,7 @@ Ext.define('VisualMonita.view.vm.editor.canvas.label.LabelObjectController', {
         object.getViewModel().set('x_drag', false);
       }
 
-      var prop = Ext.ComponentQuery.query('#properties')[0];
-      prop.getViewModel().set('x_ItemId', object.getItemId());
-      prop.getViewModel().set('x_Height', object.getHeight());
-      prop.getViewModel().set('x_Width', object.getWidth());
-      prop.getViewModel().set('x_POS_X', object.getX() - parent.getX());
-      prop.getViewModel().set('X_POS_Y', object.getY() - parent.getY());
-      prop.setDisabled(false);
+      object.getController().onSetPropertiesSource(object, parent);
     });
 
     panel.header.on('dblclick', function() {
@@ -59,13 +41,7 @@ Ext.define('VisualMonita.view.vm.editor.canvas.label.LabelObjectController', {
         object.getViewModel().set('x_drag', true);
       }
 
-      var prop = Ext.ComponentQuery.query('#properties')[0];
-      prop.getViewModel().set('x_ItemId', object.getItemId());
-      prop.getViewModel().set('x_Height', object.getHeight());
-      prop.getViewModel().set('x_Width', object.getWidth());
-      prop.getViewModel().set('x_POS_X', object.getX() - parent.getX());
-      prop.getViewModel().set('X_POS_Y', object.getY() - parent.getY());
-      prop.setDisabled(false);
+      object.getController().onSetPropertiesSource(object, parent);
     });
 
     panel.header.on('click', function() {
@@ -76,13 +52,7 @@ Ext.define('VisualMonita.view.vm.editor.canvas.label.LabelObjectController', {
         object.getViewModel().set('x_drag', false);
       }
 
-      var prop = Ext.ComponentQuery.query('#properties')[0];
-      prop.getViewModel().set('x_ItemId', object.getItemId());
-      prop.getViewModel().set('x_Height', object.getHeight());
-      prop.getViewModel().set('x_Width', object.getWidth());
-      prop.getViewModel().set('x_POS_X', object.getX() - parent.getX());
-      prop.getViewModel().set('X_POS_Y', object.getY() - parent.getY());
-      prop.setDisabled(false);
+      object.getController().onSetPropertiesSource(object, parent);
     });
   },
 
@@ -93,13 +63,7 @@ Ext.define('VisualMonita.view.vm.editor.canvas.label.LabelObjectController', {
       if (object.getViewModel().get('x_drag')) {
         object.setPagePosition(me.getX()-(object.getWidth()/2), me.getY()-20); // Center of Header
 
-        var prop = Ext.ComponentQuery.query('#properties')[0];
-        prop.getViewModel().set('x_ItemId', object.getItemId());
-        prop.getViewModel().set('x_Height', object.getHeight());
-        prop.getViewModel().set('x_Width', object.getWidth());
-        prop.getViewModel().set('x_POS_X', object.getX() - parent.getX());
-        prop.getViewModel().set('X_POS_Y', object.getY() - parent.getY());
-        prop.setDisabled(false);
+        this.onSetPropertiesSource(object, parent);
       }
     }
   },
@@ -129,11 +93,36 @@ Ext.define('VisualMonita.view.vm.editor.canvas.label.LabelObjectController', {
                 canvas.remove(object);
 
                 var prop = Ext.ComponentQuery.query('#properties')[0];
-                prop.getViewModel().set('x_ItemId', '');
-                prop.getViewModel().set('x_Height', '');
-                prop.getViewModel().set('x_Width', '');
-                prop.getViewModel().set('x_POS_X', '');
-                prop.getViewModel().set('X_POS_Y', '');
+                prop.setBind({
+                  source: {
+                    label_01: '{x_ItemId}',
+                    label_02: '{x_Height}',
+                    label_03: '{x_Width}',
+                    label_04: '{x_POS_X}',
+                    label_05: '{x_POS_Y}',
+                    label_06: '{x_Title}',
+                    label_07: '{x_Slave_ID}',
+                    label_08: '{x_Titik_Ukur}',
+                    label_09: '{x_Font}',
+                    label_10: '{x_Font_Size}',
+                    label_11: '{x_Color}',
+                    label_12: '{x_Align}',
+                    label_13: '{x_Margin}'
+                  }
+                });
+                prop.getViewModel().set('x_ItemId', 'N/A');
+                prop.getViewModel().set('x_Height', 0);
+                prop.getViewModel().set('x_Width', 0);
+                prop.getViewModel().set('x_POS_X', 0);
+                prop.getViewModel().set('x_POS_Y', 0);
+                prop.getViewModel().set('x_Title', 'N/A');
+                prop.getViewModel().set('x_Slave_ID', 0);
+                prop.getViewModel().set('x_Titik_Ukur', 0);
+                prop.getViewModel().set('x_Font', 'N/A');
+                prop.getViewModel().set('x_Font_Size', 'N/A');
+                prop.getViewModel().set('x_Color', 'N/A');
+                prop.getViewModel().set('x_Align', 'N/A');
+                prop.getViewModel().set('x_Margin', 0);
                 prop.setDisabled(true);
               }
             }
@@ -141,5 +130,40 @@ Ext.define('VisualMonita.view.vm.editor.canvas.label.LabelObjectController', {
         }
       }]
     }).showAt(view.getXY());
+  },
+
+  onSetPropertiesSource: function(me, parent) {
+    var prop = Ext.ComponentQuery.query('#properties')[0];
+    prop.setBind({
+      source: {
+        label_01: '{x_ItemId}',
+        label_02: '{x_Height}',
+        label_03: '{x_Width}',
+        label_04: '{x_POS_X}',
+        label_05: '{x_POS_Y}',
+        label_06: '{x_Title}',
+        label_07: '{x_Slave_ID}',
+        label_08: '{x_Titik_Ukur}',
+        label_09: '{x_Font}',
+        label_10: '{x_Font_Size}',
+        label_11: '{x_Color}',
+        label_12: '{x_Align}',
+        label_13: '{x_Margin}'
+      }
+    });
+    prop.getViewModel().set('x_ItemId', me.getItemId());
+    prop.getViewModel().set('x_Height', me.getHeight());
+    prop.getViewModel().set('x_Width', me.getWidth());
+    prop.getViewModel().set('x_POS_X', me.getX() - parent.getX());
+    prop.getViewModel().set('x_POS_Y', me.getY() - parent.getY());
+    prop.getViewModel().set('x_Title', me.getViewModel().get('x_title'));
+    prop.getViewModel().set('x_Slave_ID', me.getViewModel().get('x_slave_id'));
+    prop.getViewModel().set('x_Titik_Ukur', me.getViewModel().get('x_titik_ukur'));
+    prop.getViewModel().set('x_Font', me.getViewModel().get('x_font'));
+    prop.getViewModel().set('x_Font_Size', me.getViewModel().get('x_size'));
+    prop.getViewModel().set('x_Color', me.getViewModel().get('x_color'));
+    prop.getViewModel().set('x_Align', me.getViewModel().get('x_align'));
+    prop.getViewModel().set('x_Margin', me.getViewModel().get('x_margin'));
+    prop.setDisabled(false);
   }
 });

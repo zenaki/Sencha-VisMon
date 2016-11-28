@@ -24,7 +24,7 @@ Ext.define('VisualMonita.view.vm.editor.canvas.label.LabelForm', {
     items: [{
       xtype: 'textfield',
       itemId: 'label_vismon',
-      fieldLabel: 'Label',
+      fieldLabel: 'Title',
       allowBlank: false
     }, {
       xtype: 'textfield',
