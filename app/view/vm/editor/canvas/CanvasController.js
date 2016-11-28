@@ -77,7 +77,6 @@ Ext.define('VisualMonita.view.vm.editor.canvas.CanvasController', {
       width: 100,
       plain: true,
       floating: true,
-      renderTo: Ext.getBody(),
       items: [{
         text: 'Add Label',
         handler: function() {
@@ -86,7 +85,10 @@ Ext.define('VisualMonita.view.vm.editor.canvas.CanvasController', {
       }, {
         text: 'Save Visual Monita'
       }, {
-        text: 'Load Visual Monita'
+        text: 'Load Visual Monita',
+        handler: function() {
+          me.onLoadVisualMonita();
+        }
       }]
     }).showAt(view.getXY());
   },
@@ -96,5 +98,73 @@ Ext.define('VisualMonita.view.vm.editor.canvas.CanvasController', {
     this.AddLabelWindow.getViewModel().set('x_POS_X', (view.getX()-me.getView().getX()));
     this.AddLabelWindow.getViewModel().set('x_POS_Y', (view.getY()-me.getView().getY()));
     this.AddLabelWindow.show();
+  },
+
+  onLoadVisualMonita: function() {
+    var win = Ext.widget({
+      xtype: 'window',
+      title: 'Files upload form',
+      width: 350,
+      autoShow: true,
+      modal: true,
+      items: {
+        xtype: 'form',
+        border: false,
+        bodyStyle: {
+          padding: '10px'
+        },
+        items: {
+          xtype: 'filefield',
+          name: 'visualFiles[]',
+          hideLabel: true,
+          allowBlank: false,
+          anchor: '100%',
+          buttonText: 'Browse File(s)...',
+          listeners: {
+            render: function(cmp) {
+              cmp.fileInputEl.set({
+                multiple: true,
+                accept: '.json'
+              });
+            }
+          }
+        }
+      },
+      buttons: [{
+        text: 'Upload',
+        handler: function() {
+          var form = win.down('form').getForm();
+          if (form.isValid()) {
+            form.submit({
+              url: 'resources/vm/php/load_visual_monita.php',
+              waitMsg: 'Loading File(s)...',
+              success: function(fp, o) {
+                Ext.Ajax.request({
+                  url: 'resources/vm/Visual_Items/Visual_Monita.json',
+                  success: function(response){
+                    var JSON_Items = Ext.JSON.decode(response.responseText);
+                    var canvas = Ext.ComponentQuery.query('#canvas')[0];
+                    canvas.removeAll();
+                    canvas.add(JSON_Items.items);
+                  }
+                });
+                Ext.Msg.alert('Success', 'File "' + o.result.file + '" has been loaded.');
+                win.close();
+              },
+              failure: function(fp, o) {
+                Ext.Msg.alert('Failure', o.result.file || ' - server error', function () {
+                  win.close();
+                });
+              }
+            });
+          }
+        }
+      },{
+        text: 'Cancel',
+        handler: function () {
+          win.close();
+        }
+      }]
+    });
   }
 });
