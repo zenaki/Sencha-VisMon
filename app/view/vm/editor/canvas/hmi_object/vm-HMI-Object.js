@@ -5,7 +5,7 @@ Ext.define('VisualMonita.view.vm.editor.canvas.hmi_object.vm-HMI-Object', {
   ],
   xtype: 'vm-hmi-object',
   controller: 'vm-hmi-controller',
-  resizeable: {
+  resizable: {
     dynamic: true,
     pinned: true,
     handles: 'all',

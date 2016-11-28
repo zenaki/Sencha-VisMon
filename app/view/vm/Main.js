@@ -4,7 +4,8 @@ Ext.define('VisualMonita.view.vm.Main', {
   requires: [
     'VisualMonita.view.vm.MainController',
     'VisualMonita.view.vm.MainModel',
-    'VisualMonita.view.vm.editor.Editor'
+    'VisualMonita.view.vm.editor.Editor',
+    'VisualMonita.view.vm.visual.Visual'
   ],
 
   xtype: 'vm-main',
@@ -31,6 +32,7 @@ Ext.define('VisualMonita.view.vm.Main', {
       xtype: 'vm-editor',
       title: 'Editor'
     }, {
+      xtype: 'vm-visual',
       title: 'Visual'
     }]
   }]
