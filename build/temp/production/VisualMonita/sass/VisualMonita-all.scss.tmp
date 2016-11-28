@@ -1087,6 +1087,8 @@ $include-visualmonita-view-vm-editor-sidebar-sidebarcontroller: true;
 $include-visualmonita-view-vm-editor-sidebar-local_items-vm-localitems: true;
 $include-visualmonita-view-vm-editor-sidebar-property-vm-property: true;
 $include-visualmonita-view-vm-editor-sidebar-property-vm-propertycontroller: true;
+$include-visualmonita-view-vm-editor-sidebar-upload_items-multipleupload-multipleupload: true;
+$include-visualmonita-view-vm-editor-sidebar-upload_items-multipleupload-multipleuploadcontroller: true;
 $include-visualmonita-view-vm-editor-sidebar-upload_items-vm-uploaditems: true;
 $include-visualmonita-view-vm-editor-table-datatable: true;
 $include-visualmonita-view-vm-editor-websocket-ws-controller: true;

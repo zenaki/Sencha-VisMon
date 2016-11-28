@@ -26,22 +26,5 @@ Ext.define('VisualMonita.view.vm.editor.canvas.Canvas', {
     },
     boxready: 'onBoxReady'
   },
-  scrollable: true,
-  dockedItems: [{
-    xtype: 'toolbar',
-    dock: 'top',
-    items: [{
-      xtype: 'button',
-      text: 'Save Visual Monita',
-      listeners: {
-        click: 'onSaveVisualMonita'
-      }
-    }, {
-      xtype: 'button',
-      text: 'Load Visual Monita',
-      listeners: {
-        click: 'onloadVisualMonitaEditor'
-      }
-    }]
-  }]
+  scrollable: true
 });

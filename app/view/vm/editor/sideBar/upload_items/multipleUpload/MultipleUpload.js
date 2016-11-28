@@ -25,7 +25,7 @@ Ext.define('VisualMonita.view.vm.editor.sideBar.upload_items.multipleUpload.Mult
       anchor: '100%',
       buttonText: 'Browse Items(s) ...',
       listeners: {
-        render: 'onRender',
+        render: 'onRender'
       }
     }
   },
