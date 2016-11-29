@@ -107,7 +107,15 @@ Ext.define('VisualMonita.view.vm.editor.canvas.label.LabelObjectController', {
                     label_10: '{x_Font_Size}',
                     label_11: '{x_Color}',
                     label_12: '{x_Align}',
-                    label_13: '{x_Margin}'
+                    label_13: '{x_Margin}',
+                    label_14: '{x_Batas_Atas_2}',
+                    label_15: '{x_Warna_Batas_Atas_2}',
+                    label_16: '{x_Batas_Atas_1}',
+                    label_17: '{x_Warna_Batas_Atas_1}',
+                    label_18: '{x_Batas_Bawah_1}',
+                    label_19: '{x_Warna_Batas_Bawah_1}',
+                    label_20: '{x_Batas_Bawah_2}',
+                    label_21: '{x_Warna_Batas_Bawah_2}'
                   }
                 });
                 prop.getViewModel().set('x_ItemId', 'N/A');
@@ -123,6 +131,14 @@ Ext.define('VisualMonita.view.vm.editor.canvas.label.LabelObjectController', {
                 prop.getViewModel().set('x_Color', 'N/A');
                 prop.getViewModel().set('x_Align', 'N/A');
                 prop.getViewModel().set('x_Margin', 0);
+                prop.getViewModel().set('x_Batas_Atas_2', 0);
+                prop.getViewModel().set('x_Warna_Batas_Atas_2', 'N/A');
+                prop.getViewModel().set('x_Batas_Atas_1', 0);
+                prop.getViewModel().set('x_Warna_Batas_Atas_1', 'N/A');
+                prop.getViewModel().set('x_Batas_Bawah_1', 0);
+                prop.getViewModel().set('x_Warna_Batas_Bawah_1', 'N/A');
+                prop.getViewModel().set('x_Batas_Bawah_2', 0);
+                prop.getViewModel().set('x_Warna_Batas_Bawah_2', 'N/A');
                 prop.setDisabled(true);
               }
             }
@@ -148,7 +164,15 @@ Ext.define('VisualMonita.view.vm.editor.canvas.label.LabelObjectController', {
         label_10: '{x_Font_Size}',
         label_11: '{x_Color}',
         label_12: '{x_Align}',
-        label_13: '{x_Margin}'
+        label_13: '{x_Margin}',
+        label_14: '{x_Batas_Atas_2}',
+        label_15: '{x_Warna_Batas_Atas_2}',
+        label_16: '{x_Batas_Atas_1}',
+        label_17: '{x_Warna_Batas_Atas_1}',
+        label_18: '{x_Batas_Bawah_1}',
+        label_19: '{x_Warna_Batas_Bawah_1}',
+        label_20: '{x_Batas_Bawah_2}',
+        label_21: '{x_Warna_Batas_Bawah_2}'
       }
     });
     prop.getViewModel().set('x_ItemId', me.getItemId());
@@ -164,6 +188,14 @@ Ext.define('VisualMonita.view.vm.editor.canvas.label.LabelObjectController', {
     prop.getViewModel().set('x_Color', me.getViewModel().get('x_color'));
     prop.getViewModel().set('x_Align', me.getViewModel().get('x_align'));
     prop.getViewModel().set('x_Margin', me.getViewModel().get('x_margin'));
+    prop.getViewModel().set('x_Batas_Atas_2', me.getViewModel().get('x_ba_2'));
+    prop.getViewModel().set('x_Warna_Batas_Atas_2', me.getViewModel().get('x_wba_2'));
+    prop.getViewModel().set('x_Batas_Atas_1', me.getViewModel().get('x_ba_1'));
+    prop.getViewModel().set('x_Warna_Batas_Atas_1', me.getViewModel().get('x_wba_1'));
+    prop.getViewModel().set('x_Batas_Bawah_1', me.getViewModel().get('x_bb_1'));
+    prop.getViewModel().set('x_Warna_Batas_Bawah_1', me.getViewModel().get('x_wbb_1'));
+    prop.getViewModel().set('x_Batas_Bawah_2', me.getViewModel().get('x_bb_2'));
+    prop.getViewModel().set('x_Warna_Batas_Bawah_2', me.getViewModel().get('x_wbb_2'));
     prop.setDisabled(false);
   }
 });

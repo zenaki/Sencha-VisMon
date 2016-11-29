@@ -15,7 +15,7 @@ Ext.define('VisualMonita.view.vm.editor.sideBar.SideBar', {
   collapsible: true,
   collapsed: false,
   floatable: false,
-  width: 250,
+  width: 300,
   title: 'Side Bar',
   items: [{
     xtype: 'vm-property',

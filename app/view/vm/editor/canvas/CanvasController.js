@@ -131,21 +131,6 @@ Ext.define('VisualMonita.view.vm.editor.canvas.CanvasController', {
                           "x_type"   : "item_object"
             						}
             					},
-                      // "resizable" : {
-            				  //   "dynamic"     : true,
-            					// 	"pinned"      : true,
-            					// 	"handles"     : "all",
-            					// 	"transparent" : true
-            					// },
-                      // "listeners" : {
-            					// 	"resize" : "onPanelResize",
-            					// 	"render" : "onPanelObjectRender",
-                      //   "el"     : {
-              				// 	  "mousemove" : "onPanelObjectMouseMove"
-              				// 	}
-            					// },
-                      // "floating"  : true,
-                      // "shadow"    : false,
                       "renderTo"  : "CanvasID",
                       "bind"      : {
             					  "html" : "<img src=\"{x_path}\" height={x_height} width={x_width}/>"
@@ -154,7 +139,6 @@ Ext.define('VisualMonita.view.vm.editor.canvas.CanvasController', {
                       "width"     : item.getWidth(),
                       "x"         : (item.getX()-parent.getX()),
                       "y"         : (item.getY()-parent.getY())
-                      // "bodyStyle" : "background:transparent;"
                     });
                   } else if (item.getViewModel().get('x_type') == 'item_label') {
                     index_label++;
@@ -168,43 +152,33 @@ Ext.define('VisualMonita.view.vm.editor.canvas.CanvasController', {
                           "x_width"       : item.getViewModel().get('x_width'),
                           "x_drag"        : item.getViewModel().get('x_drag'),
                           "x_type"        : "item_label",
+                          "x_title"       : item.getViewModel().get('x_title'),
                           "x_slave_id"    : item.getViewModel().get('x_slave_id'),
-                          "x_titik_ukur"  : item.getViewModel().get('x_titik_ukur')
+                          "x_titik_ukur"  : item.getViewModel().get('x_titik_ukur'),
+                          "x_font"        : item.getViewModel().get('x_font'),
+                          "x_size"        : item.getViewModel().get('x_size'),
+                          "x_color"       : item.getViewModel().get('x_color'),
+                          "x_align"       : item.getViewModel().get('x_align'),
+                          "x_margin"      : item.getViewModel().get('x_margin'),
+                          "x_ba_1"        : item.getViewModel().get('x_ba_1'),
+                          "x_wba_1"       : item.getViewModel().get('x_wba_1'),
+                          "x_ba_2"        : item.getViewModel().get('x_ba_2'),
+                          "x_wba_2"       : item.getViewModel().get('x_wba_2'),
+                          "x_bb_1"        : item.getViewModel().get('x_bb_1'),
+                          "x_wbb_1"       : item.getViewModel().get('x_wbb_1'),
+                          "x_bb_2"        : item.getViewModel().get('x_bb_2'),
+                          "x_wbb_2"       : item.getViewModel().get('x_wbb_2')
                         }
                       },
-                      "title"       : this.getTitle(),
-                      // "split"       : true,
-                      // "collapsible" : true,
-                      // "collapsed"   : false,
-                      // "floatable"   : false,
-                      // "bodyBorder"  : true,
-                      // "border"      : 5,
-                      // "style"       : {
-                      //   "borderStyle" : "solid"
-                      // },
-                      // "resizable"   : {
-            				  //   "dynamic" : true,
-            					// 	"pinned"  : true,
-            					// 	"handles" : "all"
-            					// },
-                      // "listeners"   : {
-                      //   "resize" : "onPanelResize",
-                      //   "render" : "onPanelLabelRender",
-                      //   "el"     : {
-                      //     "mousemove" : "onPanelLabelMouseMove"
-                      //   }
-                      // },
-                      // "floating"    : true,
-                      // "shadow"      : false,
                       "renderTo"    : "CanvasID",
-                      "bind"        : {
-                        "html" : "<font face=\"courier\" color=\"red\">><h1 style=\"height: 100%; width: 100%; text-align: center; margin: 0; font-size: 2em;\">{VAL_" + item.getViewModel().get('x_slave_id') + item.getViewModel().get('x_titik_ukur') + "}</h1></font>"
+                      "bind": {
+                        "title": "{x_title}",
+                        "html": "<font face=\"{x_font}\" color=\"{x_color}\"><h1 style=\"height: 100%; width: 100%; text-align: {x_align}; margin: {x_margin}; font-size: {x_size};\">{VAL_" + item.getViewModel().get('x_slave_id') + item.getViewModel().get('x_titik_ukur') + "}</h1></font>"
                       },
                       "height"      : item.getHeight(),
                       "width"       : item.getWidth(),
                       "x"           : (item.getX()-parent.getX()),
                       "y"           : (item.getY()-parent.getY())
-                      // "bodyStyle"   : "background:transparent;"
                     });
                   }
                 });
@@ -274,7 +248,15 @@ Ext.define('VisualMonita.view.vm.editor.canvas.CanvasController', {
           label_10: '{x_Font_Size}',
           label_11: '{x_Color}',
           label_12: '{x_Align}',
-          label_13: '{x_Margin}'
+          label_13: '{x_Margin}',
+          label_14: '{x_Batas_Atas_2}',
+          label_15: '{x_Warna_Batas_Atas_2}',
+          label_16: '{x_Batas_Atas_1}',
+          label_17: '{x_Warna_Batas_Atas_1}',
+          label_18: '{x_Batas_Bawah_1}',
+          label_19: '{x_Warna_Batas_Bawah_1}',
+          label_20: '{x_Batas_Bawah_2}',
+          label_21: '{x_Warna_Batas_Bawah_2}'
         }
       });
       prop.getViewModel().set('x_ItemId', me.getItemId());
@@ -282,8 +264,22 @@ Ext.define('VisualMonita.view.vm.editor.canvas.CanvasController', {
       prop.getViewModel().set('x_Width', me.getWidth());
       prop.getViewModel().set('x_POS_X', me.getX() - parent.getX());
       prop.getViewModel().set('x_POS_Y', me.getY() - parent.getY());
+      prop.getViewModel().set('x_Title', me.getViewModel().get('x_title'));
       prop.getViewModel().set('x_Slave_ID', me.getViewModel().get('x_slave_id'));
       prop.getViewModel().set('x_Titik_Ukur', me.getViewModel().get('x_titik_ukur'));
+      prop.getViewModel().set('x_Font', me.getViewModel().get('x_font'));
+      prop.getViewModel().set('x_Font_Size', me.getViewModel().get('x_size'));
+      prop.getViewModel().set('x_Color', me.getViewModel().get('x_color'));
+      prop.getViewModel().set('x_Align', me.getViewModel().get('x_align'));
+      prop.getViewModel().set('x_Margin', me.getViewModel().get('x_margin'));
+      prop.getViewModel().set('x_Batas_Atas_2', me.getViewModel().get('x_ba_2'));
+      prop.getViewModel().set('x_Warna_Batas_Atas_2', me.getViewModel().get('x_wba_2'));
+      prop.getViewModel().set('x_Batas_Atas_1', me.getViewModel().get('x_ba_1'));
+      prop.getViewModel().set('x_Warna_Batas_Atas_1', me.getViewModel().get('x_wba_1'));
+      prop.getViewModel().set('x_Batas_Bawah_1', me.getViewModel().get('x_bb_1'));
+      prop.getViewModel().set('x_Warna_Batas_Bawah_1', me.getViewModel().get('x_wbb_1'));
+      prop.getViewModel().set('x_Batas_Bawah_2', me.getViewModel().get('x_bb_2'));
+      prop.getViewModel().set('x_Warna_Batas_Bawah_2', me.getViewModel().get('x_wbb_2'));
     }
     prop.setDisabled(false);
   }
