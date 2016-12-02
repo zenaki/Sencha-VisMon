@@ -5,7 +5,8 @@ Ext.define('VisualMonita.view.vm.editor.Editor', {
     'VisualMonita.view.vm.editor.webSocket.ws-Form',
     'VisualMonita.view.vm.editor.table.DataTable',
     'VisualMonita.view.vm.editor.canvas.Canvas',
-    'VisualMonita.view.vm.editor.sideBar.SideBar'
+    'VisualMonita.view.vm.editor.sideBar.SideBar',
+    'VisualMonita.view.vm.highChart.HighChart'
   ],
   xtype: 'vm-editor',
   controller: 'editor-controller',

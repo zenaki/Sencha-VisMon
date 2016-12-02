@@ -117,6 +117,9 @@ Ext.define('VisualMonita.view.vm.editor.webSocket.ws-Controller', {
     var me = this;
     me.ws.close();
     me.task.stop();
+
+    var result = Ext.ComponentQuery.query('#result')[0];
+    result.setValue("DISCONNECTED");
   },
 
   CanvasFunction: function() {
@@ -149,6 +152,17 @@ Ext.define('VisualMonita.view.vm.editor.webSocket.ws-Controller', {
           } else {
             AllObject[i].setBind({title: '{x_title}', html: '<font face="{x_font}" color="{x_color}"><h1 style="height: 100%; width: 100%; text-align: {x_align}; margin: {x_margin}; font-size: {x_size};">{VAL_' + AllObject[i].getViewModel().get('x_slave_id') + AllObject[i].getViewModel().get('x_titik_ukur') + '}</h1></font>'});
           }
+
+          // if (AllObject[i].down('highchart')) {
+            // var chart = AllObject[i].down('highchart');
+            // console.log('chart.store.load()');
+            // chart.store.load({
+            //   params: {
+            //     "slave_id": AllObject[i].getViewModel().get('x_slave_id'),
+            //     "titik_ukur": AllObject[i].getViewModel().get('x_titik_ukur')
+            //   }
+            // });
+          // }
         }
       }
     }

@@ -89,6 +89,15 @@ Ext.define('VisualMonita.view.vm.editor.canvas.hmi_object.vm-HMI-ObjectControlle
             }
           });
         }
+      }, {
+        text: 'Add Label Point',
+        handler: function() {
+          this.AddLabelWindow = me.getView().add({xtype: 'label-form'});
+          this.AddLabelWindow.getViewModel().set('x_POS_X', (view.getX()-me.getView().getX()));
+          this.AddLabelWindow.getViewModel().set('x_POS_Y', (view.getY()-me.getView().getY()));
+          this.AddLabelWindow.getViewModel().set('x_ItemId', view.currentTarget.id);
+          this.AddLabelWindow.show();
+        }
       }]
     }).showAt(view.getXY());
   },

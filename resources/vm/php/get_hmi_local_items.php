@@ -8,5 +8,8 @@
     array_push($imgArray, $onlocal);
   }
   $result['data'] = $imgArray;
+  // echo '<pre>';
+  // echo json_encode($result, JSON_PRETTY_PRINT);
+  // echo '</pre>';
   echo json_encode($result);
 ?>

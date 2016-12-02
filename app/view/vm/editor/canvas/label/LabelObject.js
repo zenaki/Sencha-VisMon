@@ -1,7 +1,8 @@
 Ext.define('VisualMonita.view.vm.editor.canvas.label.LabelObject', {
   extend: 'Ext.panel.Panel',
   requires: [
-    'VisualMonita.view.vm.editor.canvas.label.LabelObjectController'
+    'VisualMonita.view.vm.editor.canvas.label.LabelObjectController',
+    'Ext.Chart.ux.Highcharts'
   ],
   xtype: 'vm-label-object',
   controller: 'lbl-obj-controller',
@@ -16,8 +17,16 @@ Ext.define('VisualMonita.view.vm.editor.canvas.label.LabelObject', {
     borderStyle: 'solid'
   },
   height: 100,
-  width: 150,
+  width: 200,
   bodyStyle: 'background:transparent;',
+  header: {
+    titlePosition: 0,
+    items:[{
+      xtype:'button',
+      text: 'Chart',
+      handler: 'onChartOpen'
+    }]
+  },
   resizable: {
     dynamic: true,
     pinned: true,

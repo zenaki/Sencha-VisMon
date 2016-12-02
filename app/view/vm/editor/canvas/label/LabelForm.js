@@ -12,7 +12,8 @@ Ext.define('VisualMonita.view.vm.editor.canvas.label.LabelForm', {
   viewModel: {
     data: {
       x_POS_X: 0,
-      X_POS_Y: 0
+      x_POS_Y: 0,
+      x_ItemId: ''
     }
   },
   items: {
