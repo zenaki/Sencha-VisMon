@@ -98,7 +98,50 @@ Ext.define('VisualMonita.view.vm.editor.canvas.CanvasController', {
     this.AddLabelWindow.show();
   },
 
+  getChildMenu: function(me, item, ChildMenu) {
+    item.getMenu().items.each(function(ChildItem) {
+      if (ChildItem.getMenu()) {
+        var ChildMenu2 = {menu: []};
+        ChildMenu2 = me.getChildMenu(me, ChildItem, ChildMenu2);
+        ChildMenu.menu.push({
+          "text": ChildItem.text,
+          "viewModel": {
+            "data": {
+              "x_path": ChildItem.getViewModel().get('x_path')
+            }
+          },
+          "listeners": {
+            "click": "onMenuObjectPush",
+            "contextmenu": {
+              "element": "el",
+              "fn": "onMenuRightClick"
+            }
+          },
+          "menu": ChildMenu2.menu
+        });
+      } else {
+        ChildMenu.menu.push({
+          "text": ChildItem.text,
+          "viewModel": {
+            "data": {
+              "x_path": ChildItem.getViewModel().get('x_path')
+            }
+          },
+          "listeners": {
+            "click": "onMenuObjectPush",
+            "contextmenu": {
+              "element": "el",
+              "fn": "onMenuRightClick"
+            }
+          }
+        });
+      }
+    });
+    return ChildMenu;
+  },
+
   onSaveVisualMonita: function() {
+    var me = this;
     Ext.Msg.show({
       title: 'Visual Monita',
       message: 'Download Visual Monita  From Editor ??',
@@ -114,7 +157,100 @@ Ext.define('VisualMonita.view.vm.editor.canvas.CanvasController', {
               if (btn == 'ok') {
                 var parent = Ext.ComponentQuery.query('#canvas')[0];
                 var canvas = Ext.ComponentQuery.query('#canvas > panel');
-                var json = {items: []}, index_object = 0, index_label = 0;
+                var button = Ext.ComponentQuery.query('#SegButt > button');
+                var json = {
+                  items: [],
+                  dockedItems: {
+                    xtype: 'toolbar',
+                    dock: 'top',
+                    items: [{
+                      xtype: 'segmentedbutton',
+                      allowToggle: false,
+                      itemId: 'SegButt',
+                      items: []
+                    }, {
+                      xtype: 'button',
+                      icon: null,
+                      glyph: 43,
+                      tooltip: 'Add New',
+                      handler: 'onAddNewToolBarButton'
+                    }]
+                  }
+                }, index_object = 0, index_label = 0, index_button = 0;
+                for (var i = 0; i < Object.keys(button).length; i++) {
+                  index_button++;
+                  if (button[i].getMenu()) {
+                    var button_menu = {menu: []};
+                    button[i].getMenu().items.each(function(item) {
+                      if (item.getMenu()) {
+                        var ChildMenu = {menu: []};
+                        ChildMenu = me.getChildMenu(me, item, ChildMenu);
+                        button_menu.menu.push({
+                          "text": item.text,
+                          "viewModel": {
+                            "data": {
+                              "x_path": item.getViewModel().get('x_path')
+                            }
+                          },
+                          "listeners": {
+                            "click": "onMenuObjectPush",
+                            "contextmenu": {
+                              "element": "el",
+                              "fn": "onMenuRightClick"
+                            }
+                          },
+                          "menu": ChildMenu.menu
+                        });
+                      } else {
+                        button_menu.menu.push({
+                          "text": item.text,
+                          "viewModel": {
+                            "data": {
+                              "x_path": item.getViewModel().get('x_path')
+                            }
+                          },
+                          "listeners": {
+                            "click": "onMenuObjectPush",
+                            "contextmenu": {
+                              "element": "el",
+                              "fn": "onMenuRightClick"
+                            }
+                          }
+                        });
+                      }
+                    });
+                    json.dockedItems.items[0].items.push({
+                      "xtype"     : "vm-button-object",
+                      "id"        : "button_"+index_button,
+                      "itemId"    : "button_"+index_button,
+                      "viewModel" : {
+                        "data"  : {
+                          "button"  : {
+                            "x_text"  : button[i].getViewModel().get("button.x_text"),
+                            "x_path"  : button[i].getViewModel().get("button.x_path")
+                          },
+                          "x_type"  : "button_object"
+                        }
+                      },
+                      "menu": button_menu.menu
+                    });
+                  } else {
+                    json.dockedItems.items[0].items.push({
+                      "xtype"     : "vm-button-object",
+                      "id"        : "button_"+index_button,
+                      "itemId"    : "button_"+index_button,
+                      "viewModel" : {
+                        "data"  : {
+                          "button"  : {
+                            "x_text"  : button[i].getViewModel().get("button.x_text"),
+                            "x_path"  : button[i].getViewModel().get("button.x_path")
+                          },
+                          "x_type"  : "button_object"
+                        }
+                      }
+                    });
+                  }
+                }
                 Ext.Array.each(canvas, function(item) {
                   if (item.getViewModel().get('x_type') == 'item_object') {
                     index_object++;
@@ -182,6 +318,8 @@ Ext.define('VisualMonita.view.vm.editor.canvas.CanvasController', {
                     });
                   }
                 });
+
+                console.log('json = '); console.log(json);
 
                 var form = Ext.create('Ext.form.Panel', {
                   standardSubmit: true,
@@ -282,5 +420,11 @@ Ext.define('VisualMonita.view.vm.editor.canvas.CanvasController', {
       prop.getViewModel().set('x_Warna_Batas_Bawah_2', me.getViewModel().get('x_wbb_2'));
     }
     prop.setDisabled(false);
+  },
+
+  onAddNewToolBarButton: function() {
+    this.AddButtonWindow = this.getView().add({xtype: 'button-form'});
+    this.AddButtonWindow.getViewModel().set('x_itemID', '');
+    this.AddButtonWindow.show();
   }
 });

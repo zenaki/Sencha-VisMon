@@ -184,17 +184,17 @@ Ext.define('VisualMonita.view.vm.editor.webSocket.ws-Controller', {
           var wbb_1 = AllObject[i].getViewModel().get('x_wbb_1');
           var bb_2 = AllObject[i].getViewModel().get('x_bb_2');
           var wbb_2 = AllObject[i].getViewModel().get('x_wbb_2');
-          console.log(
-            'Value = ' + value +
-            ' BA_1 = ' + ba_1 +
-            ' WBA_1 = ' + wba_1 +
-            ' BA_2 = ' + ba_2 +
-            ' WBA_2 = ' + wba_2 +
-            ' BB_1 = ' + bb_1 +
-            ' WBB_1 = ' + wbb_1 +
-            ' BB_2 = ' + bb_2 +
-            ' WBB_2 = ' + wbb_2
-          );
+          // console.log(
+          //   'Value = ' + value +
+          //   ' BA_1 = ' + ba_1 +
+          //   ' WBA_1 = ' + wba_1 +
+          //   ' BA_2 = ' + ba_2 +
+          //   ' WBA_2 = ' + wba_2 +
+          //   ' BB_1 = ' + bb_1 +
+          //   ' WBB_1 = ' + wbb_1 +
+          //   ' BB_2 = ' + bb_2 +
+          //   ' WBB_2 = ' + wbb_2
+          // );
           if (parseFloat(value) >= parseFloat(ba_1)) {
             if (parseFloat(value) >= parseFloat(ba_2)) {
               AllObject[i].setBind({html: '<font face="{x_font}" color="{x_wba_2}"><h1 style="height: 100%; width: 100%; text-align: {x_align}; margin: {x_margin}; font-size: {x_size};">{VAL_' + AllObject[i].getViewModel().get('x_slave_id') + AllObject[i].getViewModel().get('x_titik_ukur') + '}</h1></font>'});

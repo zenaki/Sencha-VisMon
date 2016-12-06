@@ -19,23 +19,24 @@ Ext.define('VisualMonita.view.vm.visual.multipleUpload.MultipleUploadController'
         success: function(fp, o) {
           Ext.Ajax.request({
             url: 'resources/vm/Visual_Items/Visual_Monita.json',
-            success: function(response){
-              var index_object = 0, index_label = 0;
+            success: function(response) {
+              var index_object = 0, index_label = 0, index_button = 0;
               var JSON_Items = Ext.JSON.decode(response.responseText);
               var visual = Ext.ComponentQuery.query('#visual')[0];
               visual.removeAll();
               for (var i = 0; i < Object.keys(JSON_Items.items).length; i++) {
                 JSON_Items.items[i].renderTo = 'VisualID';
-                JSON_Items.items[i].resizable = false;
-                JSON_Items.items[i].xtype = 'panel';
-                JSON_Items.items[i].floating = true;
-                JSON_Items.items[i].shadow = false;
                 if (JSON_Items.items[i].viewModel.data.x_type == 'item_object') {
                   index_object++;
+                  JSON_Items.items[i].xtype = 'panel';
                   JSON_Items.items[i].id = 'vm_object_' + index_object;
                   JSON_Items.items[i].itemId = 'vm_object_' + index_object;
+                  JSON_Items.items[i].resizable = false;
+                  JSON_Items.items[i].floating = true;
+                  JSON_Items.items[i].shadow = false;
                 } else if (JSON_Items.items[i].viewModel.data.x_type == 'item_label') {
                   index_label++;
+                  JSON_Items.items[i].xtype = 'visual-label-object';
                   JSON_Items.items[i].id = 'vm_label_' + index_label;
                   JSON_Items.items[i].itemId = 'vm_label_' + index_label;
                   JSON_Items.items[i].split = true;
@@ -48,6 +49,14 @@ Ext.define('VisualMonita.view.vm.visual.multipleUpload.MultipleUploadController'
                 }
               }
               visual.add(JSON_Items.items);
+              delete JSON_Items.dockedItems.items[1];
+              for (var i = 0; i < Object.keys(JSON_Items.dockedItems.items[0].items).length; i++) {
+                index_button++;
+                JSON_Items.dockedItems.items[0].items[i].xtype = 'visual-button-object';
+                JSON_Items.dockedItems.items[0].items[i].id = 'vm_button'+index_button;
+                JSON_Items.dockedItems.items[0].items[i].itemId = 'vm_button'+index_button;
+              }
+              visual.insertDocked(0, JSON_Items.dockedItems);
             }
           });
           Ext.Msg.alert('Success', 'File "' + o.result.file + '" has been loaded.');

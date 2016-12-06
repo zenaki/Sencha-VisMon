@@ -19,11 +19,14 @@ Ext.define('VisualMonita.view.vm.editor.canvas.multipleUpload.MultipleUploadCont
         success: function(fp, o) {
           Ext.Ajax.request({
             url: 'resources/vm/Visual_Items/Visual_Monita.json',
-            success: function(response){
+            success: function(response) {
               var JSON_Items = Ext.JSON.decode(response.responseText);
               var canvas = Ext.ComponentQuery.query('#canvas')[0];
               canvas.removeAll();
               canvas.add(JSON_Items.items);
+              var docked = canvas.getDockedItems('toolbar[dock="top"]');
+              canvas.removeDocked(docked[0], true);
+              canvas.insertDocked(0, JSON_Items.dockedItems);
             }
           });
           Ext.Msg.alert('Success', 'File "' + o.result.file + '" has been loaded.');

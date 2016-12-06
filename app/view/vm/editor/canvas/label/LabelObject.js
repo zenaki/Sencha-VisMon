@@ -19,14 +19,14 @@ Ext.define('VisualMonita.view.vm.editor.canvas.label.LabelObject', {
   height: 100,
   width: 200,
   bodyStyle: 'background:transparent;',
-  header: {
-    titlePosition: 0,
-    items:[{
-      xtype:'button',
-      text: 'Chart',
-      handler: 'onChartOpen'
-    }]
-  },
+  // header: {
+  //   titlePosition: 0,
+  //   items:[{
+  //     xtype:'button',
+  //     text: 'Chart',
+  //     handler: 'onChartOpen'
+  //   }]
+  // },
   resizable: {
     dynamic: true,
     pinned: true,

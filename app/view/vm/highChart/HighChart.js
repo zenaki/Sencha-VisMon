@@ -20,7 +20,12 @@ Ext.define('VisualMonita.view.vm.highChart.HighChart', {
   y: 5,
   floating: true,
   layout: 'fit',
-  draggable: false,
+  draggable: true,
+  resizable: {
+    dynamic: true,
+    pinned: true,
+    handles: 'all'
+  },
   // renderTo: Ext.getBody(),
   items: [{
     xtype: 'highchart',
